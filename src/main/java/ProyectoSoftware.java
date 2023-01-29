@@ -10,19 +10,17 @@ public class ProyectoSoftware {
         Long inicioEjecucion = System.currentTimeMillis();
         final File folder = new File("c:/CS13309_Archivos_HTML/Files");
         List<File> fileList = LectorDirectorios(folder);
-        Long tiempoLect = LectorArchivos(fileList);
+        Long tiempoClean = LectorArchivos(fileList);
 
         Long finalEjecucion = System.currentTimeMillis();
         Long tiempoEjecucion = finalEjecucion - inicioEjecucion;
-        Double valorLect = Double.valueOf(tiempoLect); valorLect = valorLect/1000;
-        Double valorEjec = Double.valueOf(tiempoEjecucion); valorEjec = valorEjec/1000;
-        System.out.println("Tiempo total en abrir archivos: " + tiempoLect + " milisegundos " + "ó " + valorLect + " segundos");
-        System.out.println("Tiempo total de ejecucion de la aplicación:  " + tiempoEjecucion + " milisegundos " + "ó " + valorEjec + " segundos");
 
-        PrintLog(tiempoLect, tiempoEjecucion, valorLect, valorEjec);
+        Double valorEjec = Double.valueOf(tiempoEjecucion); valorEjec = valorEjec/1000;
+
+        PrintLog(tiempoEjecucion, valorEjec);
     }
 
-    public static void PrintLog (Long tiempoLect, Long tiempoEjecucion, Double valorLect, Double valorEjec) {
+    public static void PrintLog (Long tiempoEjecucion, Double valorEjec) {
         try {
             String archivoToLog = CreateLog();
             if (!Objects.equals(archivoToLog, "")) {
@@ -33,7 +31,7 @@ public class ProyectoSoftware {
                     File key = itr.next();
                     escritor.write(key + " Tiempo: " + mapa.get(key) + " milisegundos\n\n");
                 }
-                escritor.write("\nTiempo total en abrir archivos: " + tiempoLect + " milisegundos " + "ó " + valorLect + " segundos");
+                //escritor.write("\nTiempo total en abrir archivos: " + tiempoLect + " milisegundos " + "ó " + valorLect + " segundos");
                 escritor.write("\nTiempo total de ejecucion de la aplicación:  " + tiempoEjecucion + " milisegundos " + "ó " + valorEjec + " segundos");
                 escritor.close();
             }
@@ -45,7 +43,7 @@ public class ProyectoSoftware {
 
     public static String CreateLog () {
         try {
-            File archivo = new File("a1_2802776.txt");
+            File archivo = new File("a2_2802776.txt");
             if(archivo.createNewFile()) {
                 System.out.println("Archivo creado: " + archivo.getName());
             } else {
@@ -59,13 +57,33 @@ public class ProyectoSoftware {
         return "";
     }
 
+    public static void CreateNewFiles (File name) {
+        try {
+            File archivo = new File("remove_"+name);
+            if(archivo.createNewFile()) {
+                System.out.println("Archivo creado: " + archivo.getName());
+                RemoveHTMLWriteNewFiles(archivo);
+            } else {
+                System.out.println("El archivo ya existe");
+            }
+            // return archivo.toString();
+        } catch (IOException e) {
+            System.out.println("Error IO");
+            e.printStackTrace();
+        }
+        //return "";
+    }
+
+    public static void RemoveHTMLWriteNewFiles (File name) {
+        int a = 0;
+    }
+
     public static Long LectorArchivos (List<File> fileList) {
-        Long tiempoLect = null;
+        Long tiempoClean = null;
         try {
             Map<File, Long> registro = new HashMap<>();
-            Long inicioLect = null;
-            Long finLect = null;
-            inicioLect = System.currentTimeMillis();
+            Long inicioClean = null; Long finClean = null;
+            inicioClean = System.currentTimeMillis();
             for (File fileIndex : fileList) {
                 Long inicio = null;
                 Long fin = null;
@@ -73,6 +91,8 @@ public class ProyectoSoftware {
                 File objeto = new File(fileIndex.toURI());
                 Scanner lector = new Scanner(objeto);
                 inicio = System.currentTimeMillis();
+                CreateNewFiles(fileIndex);
+
                 while (lector.hasNextLine()) {
                     String dato = lector.nextLine();
                 }
@@ -81,8 +101,8 @@ public class ProyectoSoftware {
                 tiempo = fin - inicio;
                 registro.put(fileIndex, tiempo);
             }
-            finLect = System.currentTimeMillis();
-            tiempoLect = finLect - inicioLect;
+            finClean = System.currentTimeMillis();
+            tiempoClean = finClean - inicioClean;
 
             // Para ordenar los valores
             mapa = new TreeMap<File, Long>(registro);
@@ -99,7 +119,7 @@ public class ProyectoSoftware {
             e.printStackTrace();
 
         }
-        return tiempoLect;
+        return tiempoClean;
     }
 
     public static List<File> LectorDirectorios (final File folder) {
