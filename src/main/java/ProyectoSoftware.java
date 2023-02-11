@@ -1,42 +1,124 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 public class ProyectoSoftware {
     static TreeMap<File, Long> mapa = new TreeMap<>();
-    //static List lista;
 
     public static void main(String[] args) {
-        Long inicioEjecucion = System.currentTimeMillis();
-        final File folder = new File("c:/CS13309_Archivos_HTML/Files");
+
+
+        System.out.println("Bienvenido!");
+        String Path = new File("").getAbsolutePath().concat("\\CS13309_Archivos_HTML\\Files");
+
+        final File folder = new File(Path);
         List<File> fileList = LectorDirectorios(folder);
-        Long tiempoClean = LectorArchivos(fileList);
+        Scanner scan = new Scanner(System.in);
+        int response = 1;
 
-        Long finalEjecucion = System.currentTimeMillis();
-        long tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
-        double valorEjec = (double) tiempoEjecucion;
-        valorEjec = valorEjec / 1000;
-        Double valorClean = Double.valueOf(tiempoClean);
-        valorClean = valorClean / 1000;
+        while (response != 0) {
+            System.out.println("Demostraciones \nIngresa el numero de la seleccion deseada:" +
+                    "\n 1.- Actividad 1" +
+                    "\n 2.- Actividad 2" +
+                    "\n 3.- Actividad 3" +
+                    "\n 4.- Actividad 4" +
+                    "\n 0.- Salir" +
+                    "");
+            response = scan.nextInt();
 
-        PrintLog(tiempoEjecucion, valorEjec, tiempoClean, valorClean);
+            switch (response) {
+                case 1:
+                    long inicioEjecucion = System.currentTimeMillis();
+
+                    long tiempoLect = LectorArchivos(fileList);
+                    CreateLog(response);
+
+                    long finalEjecucion = System.currentTimeMillis();
+                    long tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    double valorLect = tiempoLect;
+                    valorLect = valorLect / 1000;
+                    double valorEjec = tiempoEjecucion;
+                    valorEjec = valorEjec / 1000;
+
+                    PrintLog(tiempoEjecucion, tiempoLect, valorEjec, valorLect, response);
+
+                    break;
+                case 2:
+                    System.out.println("WIP");
+
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    Long tiempoClean = LectorArchivos(fileList);
+                    //CreateLog(response);
+
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    double valorClean = tiempoClean;
+                    valorClean = valorClean / 1000;
+                    valorEjec = tiempoEjecucion;
+                    valorEjec = valorEjec / 1000;
+
+                    PrintLog(tiempoEjecucion, tiempoClean, valorEjec, valorClean, response);
+
+                    CreateLog(response);
+
+                    break;
+                case 3:
+                    System.out.println("WIP2");
+
+                    CreateLog(response);
+
+                    break;
+                case 4:
+                    System.out.println("WIP3");
+
+                    CreateLog(response);
+                    break;
+                case 0:
+                    System.out.println("Gracias por usar el programa!");
+                    break;
+                default:
+                    System.out.println("Esa opcion todavía no ha sido implementada");
+                    break;
+            }
+        }
     }
-
-    public static void PrintLog(Long tiempoEjecucion, Double valorEjec, Long tiempoClean, Double valorClean) {
+    public static void PrintLog(long tiempoEjecucion, long tiempoAct, Double valorEjec, Double valorAct, int response) {
         try {
-            String archivoToLog = CreateLog();
+            String archivoToLog = CreateLog(response);
             if (!Objects.equals(archivoToLog, "")) {
                 FileWriter escritor = new FileWriter(archivoToLog);
 
                 for (File key : mapa.keySet()) {
                     escritor.write(key + " Tiempo: " + mapa.get(key) + " milisegundos\n\n");
                 }
+                switch (response){
+                    case 1:
+                        escritor.write("\nTiempo total en abrir archivos: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
+                        break;
+                    case 2:
+                        System.out.println("WIP");
+                        //escritor.write("\nTiempo total en eliminar todas las etiquetas HTML: " + tiempoClean + " milisegundos " + "ó " + valorClean + " segundos");
 
+                        break;
+                    case 3:
+                        System.out.println("WIP2");
 
+                        break;
+                    case 4:
+                        System.out.println("WIP3");
 
-                escritor.write("\nTiempo total en eliminar todas las etiquetas HTML: " + tiempoClean + " milisegundos " + "ó " + valorClean + " segundos");
+                        break;
+                    default:
+                        System.out.println("Oh!");
+                        break;
+                }
+
                 escritor.write("\nTiempo total de ejecucion de la aplicación:  " + tiempoEjecucion + " milisegundos " + "ó " + valorEjec + " segundos");
                 escritor.close();
             }
@@ -46,13 +128,15 @@ public class ProyectoSoftware {
         }
     }
 
-    public static String CreateLog() {
+    public static String CreateLog(int number) {
         try {
-            File archivo = new File("a2_2802776.txt");
-            if (archivo.createNewFile()) {
-                System.out.println("Archivo creado: " + archivo.getName());
+            String placeholder = "aR_2802776.txt";
+            String fileName = placeholder.replace('R',Character.forDigit(number,10));
+            File archivo = new File(fileName);
+            if(archivo.createNewFile()) {
+                System.out.println("Archivo creado: " + archivo.getName()+"\n\n");
             } else {
-                System.out.println("El archivo Log ya existe");
+                System.out.println("El archivo Log ya existe\n\n");
             }
             return archivo.toString();
         } catch (IOException e) {
@@ -103,31 +187,41 @@ public class ProyectoSoftware {
     }
 
     public static Long LectorArchivos(List<File> fileList) {
-        long tiempoClean;
-        Map<File, Long> registro = new HashMap<>();
-        long inicioClean; long finClean;
-        File nameFile;
-        inicioClean = System.currentTimeMillis();
-        for (File fileIndex : fileList) {
-            long inicioC; long finC; long tiempoC;
-            inicioC = System.currentTimeMillis();
-            nameFile = CreateNewFiles(fileIndex);
-            finC = System.currentTimeMillis();
-            tiempoC = finC - inicioC;
-            registro.put(nameFile, tiempoC);
+        Long tiempoLect = null;
+        try {
+            Map<File, Long> registro = new HashMap<>();
+            long inicioLect;
+            long finLect;
+            inicioLect = System.currentTimeMillis();
+            for (File fileIndex : fileList) {
+                long inicio;
+                long fin;
+                long tiempo;
+                File objeto = new File(fileIndex.toURI());
+                Scanner lector = new Scanner(objeto);
+                inicio = System.currentTimeMillis();
+                while (lector.hasNextLine()) {
+                    String dato = lector.nextLine();
+                }
+                lector.close();
+                fin = System.currentTimeMillis();
+                tiempo = fin - inicio;
+                registro.put(fileIndex, tiempo);
+            }
+            finLect = System.currentTimeMillis();
+            tiempoLect = finLect - inicioLect;
+
+            // Para ordenar los valores
+            mapa = new TreeMap<File, Long>(registro);
+
+            System.out.println("\n \n");
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error de archivo");
+            e.printStackTrace();
+
         }
-        finClean = System.currentTimeMillis();
-        tiempoClean = finClean - inicioClean;
-
-        // Para ordenar los valores
-        mapa = new TreeMap<>(registro);
-
-        for (File key : mapa.keySet()) {
-            System.out.println(key + "\nTiempo: " + registro.get(key) + " milisegundos");
-        }
-        System.out.println("\n \n");
-
-        return tiempoClean;
+        return tiempoLect;
     }
 
     public static List<File> LectorDirectorios(final File folder) {
