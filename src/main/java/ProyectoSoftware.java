@@ -47,7 +47,7 @@ public class ProyectoSoftware {
                     break;
                 case 2:
                     inicioEjecucion = System.currentTimeMillis();
-                    Long tiempoClean = LectorArchivos(fileList, response);
+                    long tiempoClean = LectorArchivos(fileList, response);
                     archivoToLog = CreateLog();
 
                     finalEjecucion = System.currentTimeMillis();
@@ -65,8 +65,20 @@ public class ProyectoSoftware {
                     inicioEjecucion = System.currentTimeMillis();
                     //Long tiempoClean = LectorArchivos(fileList, response);
 
+                    // Metodo
+
+                    long tiempoBuscar = 0;
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    double valorBuscar = tiempoBuscar;
+                    valorBuscar = valorBuscar / 1000;
+                    valorEjec = tiempoEjecucion;
+                    valorEjec = valorEjec / 1000;
+
                     archivoToLog = CreateLog();
 
+                    //PrintLog(tiempoEjecucion, tiempoBuscar, valorEjec, valorBuscar, archivoToLog);
                     break;
                 case 4:
                     System.out.println("WIP3");
@@ -191,6 +203,15 @@ public class ProyectoSoftware {
         /* </Recurso adaptado> */
 
     }
+
+    public static void RecolectorPalabras (){
+
+    }
+
+    public static void OrdenarPalabras () {
+
+    }
+
 
     public static Long LectorArchivos(List<File> fileList, int response) {
         Map<File, Long> registro = new HashMap<>();
