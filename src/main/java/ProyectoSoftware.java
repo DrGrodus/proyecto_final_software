@@ -1,11 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class ProyectoSoftware {
     static TreeMap<File, Long> mapa = new TreeMap<>();
+    static int response = 1;
 
     public static void main(String[] args) {
 
@@ -16,7 +14,7 @@ public class ProyectoSoftware {
         final File folder = new File(Path);
         List<File> fileList = LectorDirectorios(folder);
         Scanner scan = new Scanner(System.in);
-        int response = 1;
+        String archivoToLog;
 
 
         while (response != 0) {
@@ -33,8 +31,8 @@ public class ProyectoSoftware {
                 case 1:
                     long inicioEjecucion = System.currentTimeMillis();
 
-                    long tiempoLect = LectorArchivos(fileList);
-                    CreateLog(response);
+                    long tiempoLect = LectorArchivos(fileList, response);
+                    archivoToLog = CreateLog();
 
                     long finalEjecucion = System.currentTimeMillis();
                     long tiempoEjecucion = finalEjecucion - inicioEjecucion;
@@ -44,16 +42,13 @@ public class ProyectoSoftware {
                     double valorEjec = tiempoEjecucion;
                     valorEjec = valorEjec / 1000;
 
-                    PrintLog(tiempoEjecucion, tiempoLect, valorEjec, valorLect, response);
+                    PrintLog(tiempoEjecucion, tiempoLect, valorEjec, valorLect, archivoToLog);
 
                     break;
                 case 2:
-                    System.out.println("WIP");
-
                     inicioEjecucion = System.currentTimeMillis();
-
-                    Long tiempoClean = LectorArchivos(fileList);
-                    //CreateLog(response);
+                    Long tiempoClean = LectorArchivos(fileList, response);
+                    archivoToLog = CreateLog();
 
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
@@ -63,21 +58,20 @@ public class ProyectoSoftware {
                     valorEjec = tiempoEjecucion;
                     valorEjec = valorEjec / 1000;
 
-                    PrintLog(tiempoEjecucion, tiempoClean, valorEjec, valorClean, response);
-
-                    CreateLog(response);
-
+                    PrintLog(tiempoEjecucion, tiempoClean, valorEjec, valorClean, archivoToLog);
                     break;
                 case 3:
                     System.out.println("WIP2");
+                    inicioEjecucion = System.currentTimeMillis();
+                    //Long tiempoClean = LectorArchivos(fileList, response);
 
-                    CreateLog(response);
+                    archivoToLog = CreateLog();
 
                     break;
                 case 4:
                     System.out.println("WIP3");
 
-                    CreateLog(response);
+                    archivoToLog = CreateLog();
                     break;
                 case 0:
                     System.out.println("Gracias por usar el programa!");
@@ -88,26 +82,26 @@ public class ProyectoSoftware {
             }
         }
     }
-    public static void PrintLog(long tiempoEjecucion, long tiempoAct, Double valorEjec, Double valorAct, int response) {
+
+    public static void PrintLog(long tiempoEjecucion, long tiempoAct, Double valorEjec, Double valorAct, String archivoToLog) {
         try {
-            String archivoToLog = CreateLog(response);
             if (!Objects.equals(archivoToLog, "")) {
                 FileWriter escritor = new FileWriter(archivoToLog);
 
                 for (File key : mapa.keySet()) {
                     escritor.write(key + " Tiempo: " + mapa.get(key) + " milisegundos\n\n");
                 }
-                switch (response){
+                switch (response) {
                     case 1:
                         escritor.write("\nTiempo total en abrir archivos: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
                         break;
                     case 2:
-                        System.out.println("WIP");
-                        //escritor.write("\nTiempo total en eliminar todas las etiquetas HTML: " + tiempoClean + " milisegundos " + "ó " + valorClean + " segundos");
+                        escritor.write("\nTiempo total en eliminar todas las etiquetas HTML: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
 
                         break;
                     case 3:
                         System.out.println("WIP2");
+                        escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabeticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
 
                         break;
                     case 4:
@@ -128,15 +122,15 @@ public class ProyectoSoftware {
         }
     }
 
-    public static String CreateLog(int number) {
+    public static String CreateLog() {
         try {
             String placeholder = "aR_2802776.txt";
-            String fileName = placeholder.replace('R',Character.forDigit(number,10));
+            String fileName = placeholder.replace('R', Character.forDigit(response, 10));
             File archivo = new File(fileName);
-            if(archivo.createNewFile()) {
-                System.out.println("Archivo creado: " + archivo.getName()+"\n\n");
+            if (archivo.createNewFile()) {
+                System.out.println("Archivo creado: " + archivo.getName() + "\n\n");
             } else {
-                System.out.println("El archivo Log ya existe\n\n");
+                System.out.println("El archivo Log: " + archivo.getName() + " ya existe.\n\n");
             }
             return archivo.toString();
         } catch (IOException e) {
@@ -149,7 +143,6 @@ public class ProyectoSoftware {
     public static File CreateNewFiles(File name) {
         try {
             File archivo = new File("RemovedHTML/remove_HTML" + name.getName());
-
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
                     RemoveHTMLWriteNewFiles(name, archivo);
@@ -168,48 +161,87 @@ public class ProyectoSoftware {
     }
 
     public static void RemoveHTMLWriteNewFiles(File name, File archivo) {
+
+        /* <Recurso adaptado> */
+        // https://www.geeksforgeeks.org/java-program-to-read-a-file-to-string/
+        // el bloque try es para checar las excepciones cuando
+        // un objeto de la clase BufferedReader es creado
+        // para leer la direccion del archivo
         try {
             File file = new File(name.toURI());
-            Scanner lector = new Scanner(file);
+            // Declarando el objeto de la clase StringBuilder
+            StringBuilder builder = new StringBuilder();
+            BufferedReader buffer = new BufferedReader(new FileReader(file));
+            String str;
             FileWriter escritor = new FileWriter(archivo);
-            while (lector.hasNextLine()) {
-                String linea = lector.nextLine();
-                linea = linea.replaceAll("<[^>]*>", "");
-                escritor.write(linea);
-            }
-            escritor.close();
 
+            // Checa la condicional por el método buffer.readLine()
+            // mientras sea verdadero el ciclo while correra
+            while ((str = buffer.readLine()) != null) {
+                builder.append(str).append("\n");
+            }
+            String texto = builder.toString();
+            texto = texto.replaceAll("<[^>]*>", "");
+            escritor.write(texto);
+            escritor.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
+        /* </Recurso adaptado> */
 
     }
 
-    public static Long LectorArchivos(List<File> fileList) {
-        Long tiempoLect = null;
+    public static Long LectorArchivos(List<File> fileList, int response) {
+        Map<File, Long> registro = new HashMap<>();
+        long inicioAct;
+        long finAct;
+        long tiempoAct = 0;
         try {
-            Map<File, Long> registro = new HashMap<>();
-            long inicioLect;
-            long finLect;
-            inicioLect = System.currentTimeMillis();
-            for (File fileIndex : fileList) {
-                long inicio;
-                long fin;
-                long tiempo;
-                File objeto = new File(fileIndex.toURI());
-                Scanner lector = new Scanner(objeto);
-                inicio = System.currentTimeMillis();
-                while (lector.hasNextLine()) {
-                    String dato = lector.nextLine();
-                }
-                lector.close();
-                fin = System.currentTimeMillis();
-                tiempo = fin - inicio;
-                registro.put(fileIndex, tiempo);
+            switch (response) {
+                case 1:
+                    inicioAct = System.currentTimeMillis();
+                    long auxtemp = 0;
+                    for (File fileIndex : fileList) {
+                        long inicio; long fin; long tiempo;
+                        File objeto = new File(fileIndex.toURI());
+                        Scanner lector = new Scanner(objeto);
+                        inicio = System.currentTimeMillis();
+                        while (lector.hasNextLine()) {
+                            String dato = lector.nextLine();
+                        }
+                        lector.close();
+                        fin = System.currentTimeMillis();
+                        tiempo = fin - inicio;
+                        registro.put(fileIndex, tiempo);
+                    }
+                    finAct = System.currentTimeMillis();
+                    tiempoAct = finAct - inicioAct;
+                    break;
+                case 2:
+                    File nameFile;
+                    inicioAct = System.currentTimeMillis();
+                    for (File fileIndex : fileList) {
+                        long inicio; long fin; long tiempo;
+                        inicio = System.currentTimeMillis();
+                        nameFile = CreateNewFiles(fileIndex);
+                        fin = System.currentTimeMillis();
+                        tiempo = fin - inicio;
+                        registro.put(nameFile, tiempo);
+                    }
+                    finAct = System.currentTimeMillis();
+                    tiempoAct = finAct - inicioAct;
+                    break;
+                case 3:
+                    System.out.println("WIP2");
+                    break;
+                case 4:
+                    System.out.println("WIP3");
+                    break;
+                default:
+                    System.out.println("Oh!");
+                    break;
             }
-            finLect = System.currentTimeMillis();
-            tiempoLect = finLect - inicioLect;
 
             // Para ordenar los valores
             mapa = new TreeMap<File, Long>(registro);
@@ -221,7 +253,7 @@ public class ProyectoSoftware {
             e.printStackTrace();
 
         }
-        return tiempoLect;
+        return tiempoAct;
     }
 
     public static List<File> LectorDirectorios(final File folder) {
