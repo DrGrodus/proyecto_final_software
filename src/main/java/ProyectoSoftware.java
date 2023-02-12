@@ -4,6 +4,7 @@ import java.util.*;
 public class ProyectoSoftware {
     static TreeMap<File, Long> mapa = new TreeMap<>();
     static int response = 1;
+    static String folderNoHTML = "RemovedHTML";
 
     public static void main(String[] args) {
 
@@ -42,7 +43,7 @@ public class ProyectoSoftware {
                     double valorEjec = tiempoEjecucion;
                     valorEjec = valorEjec / 1000;
 
-                    PrintLog(tiempoEjecucion, tiempoLect, valorEjec, valorLect, archivoToLog);
+                    PrintLog(tiempoEjecucion, tiempoLect, valorEjec, valorLect, archivoToLog, 0);
 
                     break;
                 case 2:
@@ -58,16 +59,24 @@ public class ProyectoSoftware {
                     valorEjec = tiempoEjecucion;
                     valorEjec = valorEjec / 1000;
 
-                    PrintLog(tiempoEjecucion, tiempoClean, valorEjec, valorClean, archivoToLog);
+                    PrintLog(tiempoEjecucion, tiempoClean, valorEjec, valorClean, archivoToLog, 0);
                     break;
                 case 3:
                     System.out.println("WIP2");
                     inicioEjecucion = System.currentTimeMillis();
-                    //Long tiempoClean = LectorArchivos(fileList, response);
+                    long tiempoBuscar = 0;
+                    long tiempoAdicional = 0;
+                    String pathFolder = new File("").getAbsolutePath().concat("\\"+folderNoHTML);
+                    File folderNOHTML = new File(pathFolder);
+                    if (!folderNOHTML.exists()) {
+                        tiempoAdicional = LectorArchivos(fileList, response);
+                    }
+                    tiempoBuscar = RecolectorPalabras();
+
+                    archivoToLog = CreateLog();
 
                     // Metodo
 
-                    long tiempoBuscar = 0;
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
@@ -76,7 +85,7 @@ public class ProyectoSoftware {
                     valorEjec = tiempoEjecucion;
                     valorEjec = valorEjec / 1000;
 
-                    archivoToLog = CreateLog();
+
 
                     //PrintLog(tiempoEjecucion, tiempoBuscar, valorEjec, valorBuscar, archivoToLog);
                     break;
@@ -95,7 +104,7 @@ public class ProyectoSoftware {
         }
     }
 
-    public static void PrintLog(long tiempoEjecucion, long tiempoAct, Double valorEjec, Double valorAct, String archivoToLog) {
+    public static void PrintLog(long tiempoEjecucion, long tiempoAct, Double valorEjec, Double valorAct, String archivoToLog, int tiempoAdicional) {
         try {
             if (!Objects.equals(archivoToLog, "")) {
                 FileWriter escritor = new FileWriter(archivoToLog);
@@ -113,6 +122,9 @@ public class ProyectoSoftware {
                         break;
                     case 3:
                         System.out.println("WIP2");
+                        if(tiempoAdicional > 0) {
+                            System.out.println("Tiempo adicional: " + tiempoAdicional);
+                        }
                         escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabeticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
 
                         break;
@@ -154,7 +166,7 @@ public class ProyectoSoftware {
 
     public static File CreateNewFiles(File name) {
         try {
-            File archivo = new File("RemovedHTML/remove_HTML" + name.getName());
+            File archivo = new File(folderNoHTML+"\\remove_HTML" + name.getName());
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
                     RemoveHTMLWriteNewFiles(name, archivo);
@@ -162,7 +174,7 @@ public class ProyectoSoftware {
                     RemoveHTMLWriteNewFiles(name, archivo);
                 }
             } else {
-                throw new IOException("Error al crear un directorio " + archivo.getParent());
+                throw new IOException("Error al crear el directorio " + archivo.getParent());
             }
             return archivo;
         } catch (IOException e) {
@@ -204,7 +216,30 @@ public class ProyectoSoftware {
 
     }
 
-    public static void RecolectorPalabras (){
+    public static long RecolectorPalabras () {
+        long inicioAct; long finAct;
+        long tiempoAct = 0;
+        try {
+            File archivo = new File(folderNoHTML);
+            //File archivo = new File(folderNoHTML+"\\remove_HTML" + name.getName());
+            if (archivo.exists()) {
+                System.out.println("Ye");
+
+            } else {
+                System.out.println("Oh!");
+
+            }
+        } catch (Exception e) {
+            System.out.println("Error");
+        }
+
+            /*
+        } catch (IOException e){
+            System.out.println("Error IO, parece ser que la carpeta no existe");
+        }
+        */
+
+        return tiempoAct;
 
     }
 
@@ -255,6 +290,18 @@ public class ProyectoSoftware {
                     break;
                 case 3:
                     System.out.println("WIP2");
+                    File nameFileN;
+                    inicioAct = System.currentTimeMillis();
+                    for (File fileIndex : fileList) {
+                        long inicio; long fin; long tiempo;
+                        inicio = System.currentTimeMillis();
+                        nameFileN = CreateNewFiles(fileIndex);
+                        fin = System.currentTimeMillis();
+                        tiempo = fin - inicio;
+                        registro.put(nameFileN, tiempo);
+                    }
+                    finAct = System.currentTimeMillis();
+                    tiempoAct = finAct - inicioAct;
                     break;
                 case 4:
                     System.out.println("WIP3");
