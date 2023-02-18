@@ -7,7 +7,7 @@
 /dataSources/
 /dataSources.local.xml
 
-../RemovedHTML/
+./RemovedHTML/
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
