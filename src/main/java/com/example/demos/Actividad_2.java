@@ -1,5 +1,7 @@
 package com.example.demos;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,9 @@ public class Actividad_2 {
 
     public void LectorArchivos(List<File> fileList) {
         Map<File, Long> registro = new HashMap<>();
-        long inicioAct; long finAct; long tiempoA;
+        long inicioAct;
+        long finAct;
+        long tiempoA;
         File nameFile;
         inicioAct = System.currentTimeMillis();
         RouteToCNF(fileList, registro);
@@ -63,8 +67,7 @@ public class Actividad_2 {
 
     public File CreateNewFiles(File name) {
         try {
-            String dirAndFile = "";
-            dirAndFile = "RemovedHTML/remove_HTML";
+            String dirAndFile = "RemovedHTML/remove_HTML";
             File archivo = new File(dirAndFile + name.getName());
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
@@ -92,6 +95,7 @@ public class Actividad_2 {
         // un objeto de la clase BufferedReader es creado
         // para leer la direccion del archivo
         String regexNOHTML = "<[^>]*>";
+        String unescapeChars = "&#\\d{3}?";
         try {
             File file = new File(name.toURI());
             // Declarando el objeto de la clase StringBuilder
@@ -109,6 +113,8 @@ public class Actividad_2 {
             String texto = builder.toString();
 
             texto = texto.replaceAll(regexNOHTML, "");
+            texto = texto.replaceAll(unescapeChars, "");
+            texto = StringEscapeUtils.unescapeHtml4(texto);
             escritor.write(texto);
             escritor.close();
 

@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ProyectoSoftware {
     static TreeMap<File, Long> mapa = new TreeMap<>();
-    static int response = 1;
+    static Integer response = 1;
     static String folderNoHTML = "RemovedHTML";
     static Actividad_1 act1 = new Actividad_1();
     static Actividad_2 act2 = new Actividad_2();
@@ -27,6 +27,8 @@ public class ProyectoSoftware {
 
 
         while (response != 0) {
+            String dato = "";
+            response = null;
             System.out.println("Demostraciones \nIngresa el numero de la seleccion deseada:" +
                     "\n 1.- Actividad 1" +
                     "\n 2.- Actividad 2" +
@@ -35,7 +37,14 @@ public class ProyectoSoftware {
                     "\n 5.- Actividad 5" +
                     "\n 0.- Salir" +
                     "");
-                response = scan.nextInt();
+            dato = scan.nextLine();
+            try {
+                if (Integer.parseInt(dato) >= 0) {
+                    response = Integer.parseInt(dato);
+                }
+            } catch (Exception e) {
+                response = 99;
+            }
 
             switch (response) {
                 case 1:
@@ -54,9 +63,9 @@ public class ProyectoSoftware {
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, 0);
                     break;
                 case 2:
-                    tiempoEjecucion = 0; tiempoAct = 0;
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
                     inicioEjecucion = System.currentTimeMillis();
-                    // tiempoAct = LectorArchivos(fileList);
                     act2.LectorArchivos(fileList);
                     archivoToLog = CreateLog();
 
@@ -65,21 +74,26 @@ public class ProyectoSoftware {
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
-                    registros = null; registros = act2.getRegistros();
+                    registros = null;
+                    registros = act2.getRegistros();
 
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, 0);
                     break;
                 case 3:
                     System.out.println("WIP2");
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
                     inicioEjecucion = System.currentTimeMillis();
-                    long tiempoBuscar = 0;
                     long tiempoAdicional = 0;
                     String pathFolder = new File("").getAbsolutePath().concat("\\" + folderNoHTML);
                     File folderNOHTML = new File(pathFolder);
                     if (!folderNOHTML.exists()) {
-                        tiempoAdicional = LectorArchivos(fileList);
+                        //tiempoAdicional = LectorArchivos(fileList);
+                        act2.LectorArchivos(fileList);
+                        tiempoAdicional = act2.getTiempoAct();
                     }
-                    tiempoBuscar = RecolectorPalabras();
+                    //tiempoAct = RecolectorPalabras();
+                    act3.ListadoDeArchivos();
 
                     archivoToLog = CreateLog();
 
@@ -313,27 +327,27 @@ public class ProyectoSoftware {
         long inicioAct;
         long finAct;
         long tiempoAct = 0;
-            switch (response) {
-                case 3:
-                    System.out.println("WIP2");
-                    File nameFileN;
-                    inicioAct = System.currentTimeMillis();
-                    RouteToCNF(fileList, registro);
-                    finAct = System.currentTimeMillis();
-                    tiempoAct = finAct - inicioAct;
-                    break;
-                case 4:
-                    System.out.println("WIP3");
-                    break;
-                default:
-                    System.out.println("Oh!");
-                    break;
-            }
+        switch (response) {
+            case 3:
+                System.out.println("WIP2");
+                File nameFileN;
+                inicioAct = System.currentTimeMillis();
+                RouteToCNF(fileList, registro);
+                finAct = System.currentTimeMillis();
+                tiempoAct = finAct - inicioAct;
+                break;
+            case 4:
+                System.out.println("WIP3");
+                break;
+            default:
+                System.out.println("Oh!");
+                break;
+        }
 
-            // Para ordenar los valores
-            mapa = new TreeMap<File, Long>(registro);
+        // Para ordenar los valores
+        mapa = new TreeMap<File, Long>(registro);
 
-            System.out.println("\n \n");
+        System.out.println("\n \n");
         return tiempoAct;
     }
 
