@@ -1,7 +1,8 @@
 # proyecto_final_software
 
-* Actividad 1
-* Actividad 2
-* Actividad 3
-* Actividad 4
-* Actividad 5
+* Actividad 1 100%
+* Actividad 2 100%
+* Actividad 3 70%
+* Actividad 4 0%
+* Actividad 5 0%
+* Actividad 6 0%

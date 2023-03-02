@@ -14,6 +14,7 @@ public class ProyectoSoftware {
     static Actividad_3 act3 = new Actividad_3();
     static Actividad_4 act4 = new Actividad_4();
     static Actividad_5 act5 = new Actividad_5();
+    static Actividad_6 act6 = new Actividad_6();
 
     public static void main(String[] args) {
 

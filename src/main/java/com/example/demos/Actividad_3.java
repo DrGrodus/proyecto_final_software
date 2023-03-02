@@ -37,7 +37,7 @@ public class Actividad_3 {
             File archivo = new File("RemovedHTML");
             if (archivo.exists()) {
                 List<File> fileList = LectorDirectorios(folderBuscar);
-                System.out.println("A");
+                //System.out.println("A");
                 RouteToCNF(fileList, registro);
 
 
@@ -95,8 +95,8 @@ public class Actividad_3 {
         // el bloque try es para checar las excepciones cuando
         // un objeto de la clase BufferedReader es creado
         // para leer la direccion del archivo
-        String strip = "A"; // [^[A-z][0-9]-[ \t]]?
-        // casos simples (\w+)+
+        String onlyWords = "[-A-z/.]{2,}+";
+        List listaDePalabras = new ArrayList();
 
         try {
             File file = new File(name.toURI());
@@ -110,11 +110,19 @@ public class Actividad_3 {
             // mientras sea verdadero el ciclo while correra
             while ((str = buffer.readLine()) != null) {
                 builder.append(str).append("\n");
+                if(str.matches(onlyWords)) {
+                    str.split()
+                    listaDePalabras.add();
+                }
             }
 
             String texto = builder.toString();
-            texto = texto.replaceAll(strip, "");
-            escritor.write(texto);
+            //texto = texto.replaceAll(strip, "");
+            if(texto.matches(onlyWords)) {
+                System.out.println("A");
+                texto = texto.replaceAll("\\s", "\n");
+            }
+            //escritor.write(texto);
             escritor.close();
 
         } catch (IOException e) {
