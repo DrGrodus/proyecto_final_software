@@ -2,6 +2,7 @@ package com.example.demos;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class Actividad_3 {
 
@@ -110,14 +111,13 @@ public class Actividad_3 {
             // mientras sea verdadero el ciclo while correra
             while ((str = buffer.readLine()) != null) {
                 builder.append(str).append("\n");
-                if(str.matches(onlyWords)) {
-                    str.split()
-                    listaDePalabras.add();
-                }
             }
 
             String texto = builder.toString();
-            //texto = texto.replaceAll(strip, "");
+            Pattern pat = Pattern.compile(onlyWords);
+
+
+
             if(texto.matches(onlyWords)) {
                 System.out.println("A");
                 texto = texto.replaceAll("\\s", "\n");

@@ -6,3 +6,4 @@
 * Actividad 4 0%
 * Actividad 5 0%
 * Actividad 6 0%
+* Actividad 7 0%
