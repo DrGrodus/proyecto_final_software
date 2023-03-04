@@ -15,6 +15,7 @@ public class ProyectoSoftware {
     static Actividad_4 act4 = new Actividad_4();
     static Actividad_5 act5 = new Actividad_5();
     static Actividad_6 act6 = new Actividad_6();
+    static Actividad_7 act7 = new Actividad_7();
 
     public static void main(String[] args) {
 
@@ -36,6 +37,8 @@ public class ProyectoSoftware {
                     "\n 3.- Actividad 3" +
                     "\n 4.- Actividad 4" +
                     "\n 5.- Actividad 5" +
+                    "\n 5.- Actividad 6" +
+                    "\n 5.- Actividad 7" +
                     "\n 0.- Salir" +
                     "");
             dato = scan.nextLine();
@@ -81,7 +84,6 @@ public class ProyectoSoftware {
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, 0);
                     break;
                 case 3:
-                    System.out.println("WIP2");
                     tiempoEjecucion = 0;
                     tiempoAct = 0;
                     inicioEjecucion = System.currentTimeMillis();
@@ -89,21 +91,19 @@ public class ProyectoSoftware {
                     String pathFolder = new File("").getAbsolutePath().concat("\\" + folderNoHTML);
                     File folderNOHTML = new File(pathFolder);
                     if (!folderNOHTML.exists()) {
-                        //tiempoAdicional = LectorArchivos(fileList);
                         act2.LectorArchivos(fileList);
                         tiempoAdicional = act2.getTiempoAct();
                     }
-                    //tiempoAct = RecolectorPalabras();
                     act3.ListadoDeArchivos();
 
                     archivoToLog = CreateLog();
-
-                    // Metodo
-
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
-                    //PrintLog(tiempoEjecucion, tiempoBuscar, valorEjec, valorBuscar, archivoToLog);
+                    registros = null;
+                    registros = act3.getRegistros();
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
                 case 4:
                     System.out.println("WIP3");
@@ -112,6 +112,16 @@ public class ProyectoSoftware {
                     break;
                 case 5:
                     System.out.println("WIP4");
+
+                    break;
+
+                case 6:
+                    System.out.println("WIP5");
+
+                    break;
+
+                case 7:
+                    System.out.println("WIP6");
 
                     break;
 
@@ -125,7 +135,7 @@ public class ProyectoSoftware {
         }
     }
 
-    public static void PrintLog(long tiempoEjecucion, long tiempoAct, String archivoToLog, TreeMap<File, Long> registros, int tiempoAdicional) {
+    public static void PrintLog(long tiempoEjecucion, long tiempoAct, String archivoToLog, TreeMap<File, Long> registros, long tiempoAdicional) {
         try {
             if (!Objects.equals(archivoToLog, "")) {
                 FileWriter escritor = new FileWriter(archivoToLog);
@@ -138,6 +148,8 @@ public class ProyectoSoftware {
                 valorAct = valorAct / 1000;
                 double valorEjec = tiempoEjecucion;
                 valorEjec = valorEjec / 1000;
+                double valorAdc = tiempoAdicional;
+                valorAdc = valorAdc / 1000;
 
                 switch (response) {
                     case 1:
@@ -148,9 +160,8 @@ public class ProyectoSoftware {
 
                         break;
                     case 3:
-                        System.out.println("WIP2");
                         if (tiempoAdicional > 0) {
-                            System.out.println("Tiempo adicional: " + tiempoAdicional);
+                            System.out.println("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
                         }
                         escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabeticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
 
@@ -162,6 +173,16 @@ public class ProyectoSoftware {
 
                     case 5:
                         System.out.println("WIP4");
+
+                        break;
+
+                    case 6:
+                        System.out.println("WIP5");
+
+                        break;
+
+                    case 7:
+                        System.out.println("WIP6");
 
                         break;
                     default:
@@ -194,176 +215,6 @@ public class ProyectoSoftware {
             e.printStackTrace();
         }
         return "";
-    }
-
-    public static File CreateNewFiles(File name) {
-        try {
-            String dirAndFile = "";
-            switch (response) {
-                case 3:
-                    dirAndFile = "StrippedText/strip_string";
-                    break;
-                case 4:
-                    System.out.println("WIP4");
-
-                    break;
-                case 5:
-                    System.out.println("WIP5");
-
-                    break;
-                default:
-                    System.out.println("Mmm...");
-
-                    break;
-
-            }
-            File archivo = new File(dirAndFile + name.getName());
-            if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
-                if (archivo.createNewFile()) {
-                    Cleaner(name, archivo);
-                } else {
-                    Cleaner(name, archivo);
-                }
-            } else {
-                throw new IOException("Error al crear el directorio " + archivo.getParent());
-            }
-            return archivo;
-        } catch (IOException e) {
-            System.out.println("Error IO");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static void Cleaner(File name, File archivo) {
-
-        /* <Recurso adaptado> */
-        // https://www.geeksforgeeks.org/java-program-to-read-a-file-to-string/
-        // el bloque try es para checar las excepciones cuando
-        // un objeto de la clase BufferedReader es creado
-        // para leer la direccion del archivo
-        String regexNOHTML = "<[^>]*>";
-        String strip = "A";
-        try {
-            File file = new File(name.toURI());
-            // Declarando el objeto de la clase StringBuilder
-            StringBuilder builder = new StringBuilder();
-            BufferedReader buffer = new BufferedReader(new FileReader(file));
-            String str;
-            FileWriter escritor = new FileWriter(archivo);
-
-            // Checa la condicional por el método buffer.readLine()
-            // mientras sea verdadero el ciclo while correra
-            while ((str = buffer.readLine()) != null) {
-                builder.append(str).append("\n");
-            }
-
-            String texto = builder.toString();
-            switch (response) {
-                case 3:
-                    texto = texto.replaceAll(strip, "");
-                    escritor.write(texto);
-                    escritor.close();
-                    break;
-
-                case 4:
-                    System.out.println("WIP4");
-
-                    break;
-
-                case 5:
-                    System.out.println("WIP5");
-
-                    break;
-
-                default:
-                    System.out.println("No?");
-                    break;
-
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        /* </Recurso adaptado> */
-
-    }
-
-    public static long RecolectorPalabras() {
-        long inicioAct;
-        long finAct;
-        long tiempoAct = 0;
-        String Path = new File("").getAbsolutePath().concat("\\RemovedHTML");
-        final File folderBuscar = new File(Path);
-        try {
-            File archivo = new File(folderNoHTML);
-            if (archivo.exists()) {
-                System.out.println("Ye");
-                List<File> fileList = LectorDirectorios(folderBuscar);
-                System.out.println("A");
-                /* RouteToCNF(); */
-
-
-            } else {
-                System.out.println("Oh!");
-
-            }
-        } catch (Exception e) {
-            System.out.println("Error");
-        }
-
-            /*
-        } catch (IOException e){
-            System.out.println("Error IO, parece ser que la carpeta no existe");
-        }
-        */
-
-        return tiempoAct;
-
-    }
-
-
-    public static Long LectorArchivos(List<File> fileList) {
-        Map<File, Long> registro = new HashMap<>();
-        long inicioAct;
-        long finAct;
-        long tiempoAct = 0;
-        switch (response) {
-            case 3:
-                System.out.println("WIP2");
-                File nameFileN;
-                inicioAct = System.currentTimeMillis();
-                RouteToCNF(fileList, registro);
-                finAct = System.currentTimeMillis();
-                tiempoAct = finAct - inicioAct;
-                break;
-            case 4:
-                System.out.println("WIP3");
-                break;
-            default:
-                System.out.println("Oh!");
-                break;
-        }
-
-        // Para ordenar los valores
-        mapa = new TreeMap<File, Long>(registro);
-
-        System.out.println("\n \n");
-        return tiempoAct;
-    }
-
-    private static void RouteToCNF(List<File> fileList, Map<File, Long> registro) {
-        File nameFileN;
-        for (File fileIndex : fileList) {
-            long inicio;
-            long fin;
-            long tiempo;
-            inicio = System.currentTimeMillis();
-            nameFileN = CreateNewFiles(fileIndex);
-            fin = System.currentTimeMillis();
-            tiempo = fin - inicio;
-            registro.put(nameFileN, tiempo);
-        }
     }
 
     public static List<File> LectorDirectorios(final File folder) {

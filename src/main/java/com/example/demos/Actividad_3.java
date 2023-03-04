@@ -2,6 +2,7 @@ package com.example.demos;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Actividad_3 {
@@ -38,18 +39,16 @@ public class Actividad_3 {
             File archivo = new File("RemovedHTML");
             if (archivo.exists()) {
                 List<File> fileList = LectorDirectorios(folderBuscar);
-                //System.out.println("A");
                 RouteToCNF(fileList, registro);
-
-
             } else {
                 System.out.println("Oh!");
-
             }
         } catch (Exception e) {
-            //System.out.println("Error");
+            System.out.println("Error");
             e.printStackTrace();
         }
+        TreeMap<File, Long> mapa = new TreeMap<File, Long>(registro);
+        setRegistros(mapa);
     }
 
     private void RouteToCNF(List<File> fileList, Map<File, Long> registro) {
@@ -96,8 +95,7 @@ public class Actividad_3 {
         // el bloque try es para checar las excepciones cuando
         // un objeto de la clase BufferedReader es creado
         // para leer la direccion del archivo
-        String onlyWords = "[-A-z/.]{2,}+";
-        List listaDePalabras = new ArrayList();
+        String onlyWords = "([-A-z/.]{2,}+)";
 
         try {
             File file = new File(name.toURI());
@@ -105,7 +103,13 @@ public class Actividad_3 {
             StringBuilder builder = new StringBuilder();
             BufferedReader buffer = new BufferedReader(new FileReader(file));
             String str;
+            List<String> parrafo = new ArrayList<>();
             FileWriter escritor = new FileWriter(archivo);
+
+            // se asigna el regex al pattern para ser usado por la clase Matcher,
+            // la cual hará el trabajo de encontrar coincidencias
+            Pattern pat = Pattern.compile(onlyWords);
+            Matcher m;
 
             // Checa la condicional por el método buffer.readLine()
             // mientras sea verdadero el ciclo while correra
@@ -114,15 +118,13 @@ public class Actividad_3 {
             }
 
             String texto = builder.toString();
-            Pattern pat = Pattern.compile(onlyWords);
-
-
-
-            if(texto.matches(onlyWords)) {
-                System.out.println("A");
-                texto = texto.replaceAll("\\s", "\n");
+            m = pat.matcher(texto);
+            while (m.find()) {
+                parrafo.add(m.group(1));
             }
-            //escritor.write(texto);
+            for (String elem : parrafo) {
+                escritor.write(elem + System.lineSeparator());
+            }
             escritor.close();
 
         } catch (IOException e) {

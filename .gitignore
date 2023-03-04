@@ -7,8 +7,12 @@
 /dataSources/
 /dataSources.local.xml
 
-RemovedHTML/
-*.txt
+# RemovedHTML/
+# OnlyWords/
+
+# Logs
+# *.txt
+
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij
