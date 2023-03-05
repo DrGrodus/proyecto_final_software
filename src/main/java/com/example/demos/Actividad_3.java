@@ -120,10 +120,17 @@ public class Actividad_3 {
             String texto = builder.toString();
             m = pat.matcher(texto);
             while (m.find()) {
-                parrafo.add(m.group(1));
+                String up = m.group(1).substring(0,1).toUpperCase() + m.group(1).substring(1);
+                parrafo.add(up);
             }
+            Pattern pat1 = Pattern.compile("--");
+            Matcher m1;
+            Collections.sort(parrafo);
             for (String elem : parrafo) {
-                escritor.write(elem + System.lineSeparator());
+                m1 = pat1.matcher(elem);
+                if(!m1.find()) {
+                    escritor.write(elem + System.lineSeparator());
+                }
             }
             escritor.close();
 
