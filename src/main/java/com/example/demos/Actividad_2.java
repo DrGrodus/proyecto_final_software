@@ -30,10 +30,6 @@ public class Actividad_2 {
         this.registros = registros;
     }
 
-    public void RecolectorInformacion() {
-
-    }
-
     public void LectorArchivos(List<File> fileList) {
         Map<File, Long> registro = new HashMap<>();
         long inicioAct;
@@ -47,7 +43,7 @@ public class Actividad_2 {
         setTiempoAct(tiempoA);
 
         // Para ordenar los valores
-        TreeMap<File, Long> mapa = new TreeMap<File, Long>(registro);
+        TreeMap<File, Long> mapa = new TreeMap<>(registro);
         setRegistros(mapa);
     }
 
@@ -67,7 +63,7 @@ public class Actividad_2 {
 
     public File CreateNewFiles(File name) {
         try {
-            String dirAndFile = "RemovedHTML/remove_HTML";
+            String dirAndFile = "RemovedHTML/remove_HTML_";
             File archivo = new File(dirAndFile + name.getName());
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {

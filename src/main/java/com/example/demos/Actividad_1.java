@@ -32,12 +32,13 @@ public class Actividad_1 {
         long finAct;
         try {
             inicioAct = System.currentTimeMillis();
+            String dirAndFile = "CS13309_Archivos_HTML/Files/";
             long auxtemp = 0;
             for (File fileIndex : fileList) {
                 long inicio;
                 long fin;
                 long tiempo;
-                File objeto = new File(fileIndex.toURI());
+                File objeto = new File(dirAndFile + fileIndex.getName());
                 Scanner lector = new Scanner(objeto);
                 inicio = System.currentTimeMillis();
                 while (lector.hasNextLine()) {
@@ -46,7 +47,7 @@ public class Actividad_1 {
                 lector.close();
                 fin = System.currentTimeMillis();
                 tiempo = fin - inicio;
-                registro.put(fileIndex, tiempo);
+                registro.put(objeto, tiempo);
             }
             finAct = System.currentTimeMillis();
             setTiempoAct(finAct - inicioAct);

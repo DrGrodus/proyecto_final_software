@@ -95,6 +95,7 @@ public class ProyectoSoftware {
                         tiempoAdicional = act2.getTiempoAct();
                     }
                     act3.ListadoDeArchivos();
+                    tiempoAct = act3.getTiempoAct();
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();

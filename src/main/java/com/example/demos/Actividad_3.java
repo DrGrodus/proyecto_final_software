@@ -38,8 +38,12 @@ public class Actividad_3 {
         try {
             File archivo = new File("RemovedHTML");
             if (archivo.exists()) {
+                inicioAct = System.currentTimeMillis();
                 List<File> fileList = LectorDirectorios(folderBuscar);
                 RouteToCNF(fileList, registro);
+                finAct = System.currentTimeMillis();
+                tiempoAct = finAct - inicioAct;
+                setTiempoAct(tiempoAct);
             } else {
                 System.out.println("Oh!");
             }
