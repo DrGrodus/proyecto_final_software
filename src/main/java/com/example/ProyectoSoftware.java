@@ -147,6 +147,9 @@ public class ProyectoSoftware {
                     tiempoAdicional += act3.getTiempoAct();
 
 
+                    act5.setListado(act3.getCollecionDePalabras());
+                    act5.LeerListaDePalabras();
+
                     /* Metodos */
 
                     archivoToLog = CreateLog();
