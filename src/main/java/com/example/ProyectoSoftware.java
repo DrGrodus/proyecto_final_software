@@ -6,7 +6,6 @@ import java.io.*;
 import java.util.*;
 
 public class ProyectoSoftware {
-    static TreeMap<File, Long> mapa = new TreeMap<>();
     static Integer response = 1;
     static String folderNoHTML = "RemovedHTML";
     static Actividad_1 act1 = new Actividad_1();
@@ -37,8 +36,8 @@ public class ProyectoSoftware {
                     "\n 3.- Actividad 3" +
                     "\n 4.- Actividad 4" +
                     "\n 5.- Actividad 5" +
-                    "\n 5.- Actividad 6" +
-                    "\n 5.- Actividad 7" +
+                    "\n 6.- Actividad 6" +
+                    "\n 7.- Actividad 7" +
                     "\n 0.- Salir" +
                     "");
             dato = scan.nextLine();
@@ -109,7 +108,29 @@ public class ProyectoSoftware {
                 case 4:
                     System.out.println("WIP3");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* Metodos */
+
+                    act3.ListadoDeArchivos();
+                    tiempoAdicional += act3.getTiempoAct();
+
+                    act4.setTodasLasPalabras(act3.getCollecionDePalabras());
+                    act4.CrearArchivo();
+                    tiempoAct = act4.getTiempoAct();
+                    /* Metodos */
+
                     archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    registros = null;
+                    registros = act4.getRegistros();
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
                 case 5:
                     System.out.println("WIP4");
@@ -145,31 +166,33 @@ public class ProyectoSoftware {
                     escritor.write(key + " Tiempo: " + registros.get(key) + " milisegundos\n\n");
                 }
 
-                double valorAct = tiempoAct;
-                valorAct = valorAct / 1000;
-                double valorEjec = tiempoEjecucion;
-                valorEjec = valorEjec / 1000;
-                double valorAdc = tiempoAdicional;
-                valorAdc = valorAdc / 1000;
+                double valorAct = tiempoAct;        valorAct /= 1000;
+                double valorEjec = tiempoEjecucion; valorEjec /= 1000;
+                double valorAdc = tiempoAdicional;  valorAdc /= 1000;
 
                 switch (response) {
                     case 1:
                         escritor.write("\nTiempo total en abrir archivos: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
                         break;
+
                     case 2:
                         escritor.write("\nTiempo total en eliminar todas las etiquetas HTML: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
-
                         break;
+
                     case 3:
                         if (tiempoAdicional > 0) {
-                            System.out.println("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
+                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
                         }
                         escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabeticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
-
                         break;
+
                     case 4:
                         System.out.println("WIP3");
 
+                        if (tiempoAdicional > 0) {
+                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
+                        }
+                        escritor.write("\nTiempo total en juntar las palabras de todos los archivos: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
                         break;
 
                     case 5:
@@ -186,6 +209,7 @@ public class ProyectoSoftware {
                         System.out.println("WIP6");
 
                         break;
+
                     default:
                         System.out.println("Oh!");
                         break;

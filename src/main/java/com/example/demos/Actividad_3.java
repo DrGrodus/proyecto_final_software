@@ -11,6 +11,9 @@ public class Actividad_3 {
 
     private TreeMap<File, Long> registros;
 
+    private List<String> collecionDePalabras;
+    private List recolector = new ArrayList<>();
+
     public long getTiempoAct() {
         return tiempoAct;
     }
@@ -25,6 +28,14 @@ public class Actividad_3 {
 
     public void setRegistros(TreeMap<File, Long> registros) {
         this.registros = registros;
+    }
+
+    public List getCollecionDePalabras() {
+        return collecionDePalabras;
+    }
+
+    public void setCollecionDePalabras(List collecionDePalabras) {
+        this.collecionDePalabras = collecionDePalabras;
     }
 
     public void ListadoDeArchivos() {
@@ -51,8 +62,9 @@ public class Actividad_3 {
             System.out.println("Error");
             e.printStackTrace();
         }
-        TreeMap<File, Long> mapa = new TreeMap<File, Long>(registro);
+        TreeMap<File, Long> mapa = new TreeMap<>(registro);
         setRegistros(mapa);
+        setCollecionDePalabras(recolector);
     }
 
     private void RouteToCNF(List<File> fileList, Map<File, Long> registro) {
@@ -110,11 +122,6 @@ public class Actividad_3 {
             List<String> parrafo = new ArrayList<>();
             FileWriter escritor = new FileWriter(archivo);
 
-            // se asigna el regex al pattern para ser usado por la clase Matcher,
-            // la cual hará el trabajo de encontrar coincidencias
-            Pattern pat = Pattern.compile(onlyWords);
-            Matcher m;
-
             // Checa la condicional por el método buffer.readLine()
             // mientras sea verdadero el ciclo while correra
             while ((str = buffer.readLine()) != null) {
@@ -122,20 +129,27 @@ public class Actividad_3 {
             }
 
             String texto = builder.toString();
-            m = pat.matcher(texto);
+
+            // se asigna el regex al pattern para ser usado por la clase Matcher,
+            // la cual hará el trabajo de encontrar coincidencias
+            Pattern pat = Pattern.compile(onlyWords);
+            Matcher m = pat.matcher(texto);
             while (m.find()) {
-                String up = m.group(1).substring(0,1).toUpperCase() + m.group(1).substring(1);
-                parrafo.add(up);
+                String down = m.group(1).substring(0,1).toLowerCase() + m.group(1).substring(1);
+                parrafo.add(down);
             }
             Pattern pat1 = Pattern.compile("--");
             Matcher m1;
             Collections.sort(parrafo);
+            List<String> palabrasPorArchivo = new ArrayList<>();
             for (String elem : parrafo) {
                 m1 = pat1.matcher(elem);
                 if(!m1.find()) {
                     escritor.write(elem + System.lineSeparator());
+                    palabrasPorArchivo.add(elem);
                 }
             }
+            recolector.add(palabrasPorArchivo);
             escritor.close();
 
         } catch (IOException e) {
