@@ -106,8 +106,6 @@ public class ProyectoSoftware {
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
                 case 4:
-                    System.out.println("WIP3");
-
                     tiempoEjecucion = 0;
                     tiempoAct = 0;
                     tiempoAdicional = 0;
@@ -115,7 +113,9 @@ public class ProyectoSoftware {
 
                     /* Metodos */
 
-                    act3.ListadoDeArchivos();
+                    if(act3.getCollecionDePalabras() == null) {
+                        act3.ListadoDeArchivos();
+                    }
                     tiempoAdicional += act3.getTiempoAct();
 
                     act4.setTodasLasPalabras(act3.getCollecionDePalabras());
@@ -135,6 +135,29 @@ public class ProyectoSoftware {
                 case 5:
                     System.out.println("WIP4");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* Metodos */
+                    if(act3.getCollecionDePalabras() == null) {
+                        act3.ListadoDeArchivos();
+                    }
+                    tiempoAdicional += act3.getTiempoAct();
+
+
+                    /* Metodos */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    registros = null;
+                    registros = act5.getRegistros();
+
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
 
                 case 6:
@@ -187,8 +210,6 @@ public class ProyectoSoftware {
                         break;
 
                     case 4:
-                        System.out.println("WIP3");
-
                         if (tiempoAdicional > 0) {
                             escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
                         }
