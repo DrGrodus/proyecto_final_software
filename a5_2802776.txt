@@ -1,0 +1,5 @@
+UniqueWords\uniqueWords.txt Tiempo: 76 milisegundos
+
+Tiempo adicional: 3133 milisegundos ó 3.133 segundos
+Tiempo total en contabilizar las coincidencias de las palabras: 76 milisegundos ó 0.076 segundos
+Tiempo total de ejecucion de la aplicación:  3608 milisegundos ó 3.608 segundos

@@ -12,6 +12,7 @@ public class Actividad_4 {
     private TreeMap<File, Long> registros;
 
     private List<List<String>> todasLasPalabras;
+    private List<String> palabrasOrdenadas;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -29,12 +30,20 @@ public class Actividad_4 {
         this.registros = registros;
     }
 
-    public List getTodasLasPalabras() {
+    public List<List<String>> getTodasLasPalabras() {
         return todasLasPalabras;
     }
 
-    public void setTodasLasPalabras(List todasLasPalabras) {
+    public void setTodasLasPalabras(List<List<String>> todasLasPalabras) {
         this.todasLasPalabras = todasLasPalabras;
+    }
+
+    public List<String> getPalabrasOrdenadas() {
+        return palabrasOrdenadas;
+    }
+
+    public void setPalabrasOrdenadas(List<String> palabrasOrdenadas) {
+        this.palabrasOrdenadas = palabrasOrdenadas;
     }
 
     public void CrearArchivo() {
@@ -74,7 +83,8 @@ public class Actividad_4 {
                 }
             }
             Collections.sort(todasLP);
-            for(String elem : todasLP){
+            setPalabrasOrdenadas(todasLP);
+            for (String elem : todasLP) {
                 escritor.write(elem + System.lineSeparator());
             }
             escritor.close();

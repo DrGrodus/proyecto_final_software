@@ -2,7 +2,9 @@ package com.example;
 
 import com.example.demos.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class ProyectoSoftware {
@@ -112,8 +114,7 @@ public class ProyectoSoftware {
                     inicioEjecucion = System.currentTimeMillis();
 
                     /* Metodos */
-
-                    if(act3.getCollecionDePalabras() == null) {
+                    if (act3.getCollecionDePalabras() == null) {
                         act3.ListadoDeArchivos();
                     }
                     tiempoAdicional += act3.getTiempoAct();
@@ -133,7 +134,6 @@ public class ProyectoSoftware {
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
                 case 5:
-                    System.out.println("WIP4");
 
                     tiempoEjecucion = 0;
                     tiempoAct = 0;
@@ -141,14 +141,17 @@ public class ProyectoSoftware {
                     inicioEjecucion = System.currentTimeMillis();
 
                     /* Metodos */
-                    if(act3.getCollecionDePalabras() == null) {
+                    if (act4.getPalabrasOrdenadas() == null) {
                         act3.ListadoDeArchivos();
+                        act4.setTodasLasPalabras(act3.getCollecionDePalabras());
+                        act4.CrearArchivo();
                     }
                     tiempoAdicional += act3.getTiempoAct();
+                    tiempoAdicional += act4.getTiempoAct();
 
-
-                    act5.setListado(act3.getCollecionDePalabras());
+                    act5.setListado(act4.getPalabrasOrdenadas());
                     act5.LeerListaDePalabras();
+                    tiempoAct = act5.getTiempoAct();
 
                     /* Metodos */
 
@@ -192,9 +195,12 @@ public class ProyectoSoftware {
                     escritor.write(key + " Tiempo: " + registros.get(key) + " milisegundos\n\n");
                 }
 
-                double valorAct = tiempoAct;        valorAct /= 1000;
-                double valorEjec = tiempoEjecucion; valorEjec /= 1000;
-                double valorAdc = tiempoAdicional;  valorAdc /= 1000;
+                double valorAct = tiempoAct;
+                valorAct /= 1000;
+                double valorEjec = tiempoEjecucion;
+                valorEjec /= 1000;
+                double valorAdc = tiempoAdicional;
+                valorAdc /= 1000;
 
                 switch (response) {
                     case 1:
@@ -207,20 +213,24 @@ public class ProyectoSoftware {
 
                     case 3:
                         if (tiempoAdicional > 0) {
-                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
+                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " + "ó " + valorAdc + " segundos");
                         }
                         escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabeticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
                         break;
 
                     case 4:
                         if (tiempoAdicional > 0) {
-                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " +  "ó " + valorAdc + " segundos");
+                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " + "ó " + valorAdc + " segundos");
                         }
                         escritor.write("\nTiempo total en juntar las palabras de todos los archivos: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
                         break;
 
                     case 5:
-                        System.out.println("WIP4");
+                        if (tiempoAdicional > 0) {
+                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " + "ó " + valorAdc + " segundos");
+                        }
+
+                        escritor.write("\nTiempo total en contabilizar las coincidencias de las palabras: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
 
                         break;
 

@@ -12,7 +12,7 @@ public class Actividad_3 {
     private TreeMap<File, Long> registros;
 
     private List<String> collecionDePalabras;
-    private List recolector = new ArrayList<>();
+    private final List recolector = new ArrayList<>();
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -135,7 +135,7 @@ public class Actividad_3 {
             Pattern pat = Pattern.compile(onlyWords);
             Matcher m = pat.matcher(texto);
             while (m.find()) {
-                String down = m.group(1).substring(0,1).toLowerCase() + m.group(1).substring(1);
+                String down = m.group(1).substring(0, 1).toLowerCase() + m.group(1).substring(1);
                 parrafo.add(down);
             }
             Pattern pat1 = Pattern.compile("--");
@@ -144,7 +144,7 @@ public class Actividad_3 {
             List<String> palabrasPorArchivo = new ArrayList<>();
             for (String elem : parrafo) {
                 m1 = pat1.matcher(elem);
-                if(!m1.find()) {
+                if (!m1.find()) {
                     escritor.write(elem + System.lineSeparator());
                     palabrasPorArchivo.add(elem);
                 }

@@ -1,15 +1,15 @@
 package com.example.demos;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 public class Actividad_5 {
 
     private long tiempoAct;
-
     private TreeMap<File, Long> registros;
-
+    private TreeMap<String, Integer> palabrasUnicas;
     private List<String> listado;
 
     public long getTiempoAct() {
@@ -28,6 +28,14 @@ public class Actividad_5 {
         this.registros = registros;
     }
 
+    public TreeMap<String, Integer> getpalabrasUnicas() {
+        return palabrasUnicas;
+    }
+
+    public void setpalabrasUnicas(TreeMap<String, Integer> cpalabrasUnicas) {
+        palabrasUnicas = cpalabrasUnicas;
+    }
+
     public List<String> getListado() {
         return listado;
     }
@@ -36,83 +44,59 @@ public class Actividad_5 {
         this.listado = listado;
     }
 
-    public void LeerListaDePalabras() {
+
+    public void LeerListaDePalabras () {
         TreeMap<String, Integer> contadorPalabrasUnicas = new TreeMap<>();
-        Map<File, Long> registro = new HashMap<>();
-        long inicioAct;
-        long finAct;
-        String Path = new File("").getAbsolutePath().concat("\\OnlyWords");
-        final File folderBuscar = new File(Path);
-        try {
-            File archivo = new File("OnlyWords");
-            if(archivo.exists()) {
-                inicioAct = System.currentTimeMillis();
-                List<File> listaFile = LectorDirectorios(folderBuscar);
-                RouteToCNF(listaFile, registro);
-                finAct = System.currentTimeMillis();
-                setTiempoAct(finAct - inicioAct);
+
+        for(String elem : getListado()) {
+            if(contadorPalabrasUnicas.containsKey(elem)) {
+                contadorPalabrasUnicas.put(elem, contadorPalabrasUnicas.get(elem)+1);
             } else {
-                System.out.println("Oh!");
+                contadorPalabrasUnicas.put(elem,1);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-
-        TreeMap<File, Long> mapa = new TreeMap<>(registro);
-        setRegistros(mapa);
-
+        setpalabrasUnicas(contadorPalabrasUnicas);
+        CrearArchivo();
     }
 
-    private void RouteToCNF(List<File> fileList, Map<File, Long> registro) {
-        File nameFileN;
-        for (File fileIndex : fileList) {
-            long inicio;
-            long fin;
-            long tiempo;
-            inicio = System.currentTimeMillis();
-            nameFileN = CreateNewFiles(fileIndex);
-            fin = System.currentTimeMillis();
-            tiempo = fin - inicio;
-            registro.put(nameFileN, tiempo);
-        }
-    }
-
-    public File CreateNewFiles(File name) {
+    public void CrearArchivo() {
+        Map<File, Long> registro = new HashMap<>();
         try {
-            String dirAndFile = "UniqueWords/uniqueWords";
+            long inicioAct;
+            long finAct;
+            inicioAct = System.currentTimeMillis();
+            File archivo = new File("UniqueWords/uniqueWords.txt");
 
-            String fileName = name.getName();
-            fileName = fileName.replaceAll("onlyWords", "");
-            File archivo = new File(dirAndFile + fileName);
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
-                    ContadorDePalabrasUnicas(name, archivo);
+                    EscribirArchivo(archivo);
                 } else {
-                    ContadorDePalabrasUnicas(name, archivo);
+                    EscribirArchivo(archivo);
                 }
             }
-            return archivo;
+            finAct = System.currentTimeMillis();
+            setTiempoAct(finAct - inicioAct);
 
+            registro.put(archivo, getTiempoAct());
+            TreeMap<File, Long> mapa = new TreeMap<>(registro);
+            setRegistros(mapa);
         } catch (IOException e) {
             System.out.println("Error IO");
-            e.printStackTrace();
         }
-        return null;
     }
 
-    public void ContadorDePalabrasUnicas (File name, File archivo){
+    public void EscribirArchivo(File archivo) {
+        try {
+            FileWriter escritor = new FileWriter(archivo);
+            for(Map.Entry<String, Integer> entry : getpalabrasUnicas().entrySet()) {
+                String palabra = entry.getKey();
+                Integer cuenta = entry.getValue();
 
-    }
-
-    public List<File> LectorDirectorios(final File folder) {
-        List<File> fileList = new ArrayList<>();
-        for (final File fileEntry : Objects.requireNonNull(folder.listFiles())) {
-            if (fileEntry.isDirectory()) {
-                LectorDirectorios(fileEntry);
-            } else {
-                fileList.add(new File(String.valueOf(fileEntry)));
+                escritor.write(palabra + "; " + cuenta + " veces repetidas.\n");
             }
+            escritor.close();
+        } catch (IOException e) {
+            System.out.println("Error IO");
         }
-        return fileList;
     }
 }
