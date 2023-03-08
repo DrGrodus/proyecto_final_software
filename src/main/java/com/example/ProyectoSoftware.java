@@ -168,7 +168,26 @@ public class ProyectoSoftware {
 
                 case 6:
                     System.out.println("WIP5");
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
 
+                    /* Metodos */
+                    //act6.set(act3.getCollecionDePalabras());
+                    act6.Contabilizar();
+
+
+                    /* Metodos */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    registros = null;
+                    //registros = act5.getRegistros();
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
 
                 case 7:

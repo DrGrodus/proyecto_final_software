@@ -5,5 +5,5 @@
 * Actividad 3 100%
 * Actividad 4 100%
 * Actividad 5 100%
-* Actividad 6 0%
+* Actividad 6 10%
 * Actividad 7 0%
