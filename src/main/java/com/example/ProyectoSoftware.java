@@ -174,7 +174,12 @@ public class ProyectoSoftware {
                     inicioEjecucion = System.currentTimeMillis();
 
                     /* Metodos */
-                    //act6.set(act3.getCollecionDePalabras());
+                    if (act3.getCollecionDePalabras() == null) {
+                        act3.ListadoDeArchivos();
+                    }
+                    tiempoAdicional += act3.getTiempoAct();
+
+                    act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
                     act6.Contabilizar();
 
 
