@@ -1,5 +1,5 @@
-MatchesAcrossFiles\matchesAcrossFiles.txt Tiempo: 18127 milisegundos
+Actividad_6\matchesAcrossFiles.txt Tiempo: 17919 milisegundos
 
-Tiempo adicional: 6595 milisegundos ó 6.595 segundos
-Tiempo total en contar el numero de veces que aparece en total y en cuantos archivos aparece: 18127 milisegundos ó 18.127 segundos
-Tiempo total de ejecucion de la aplicación:  24735 milisegundos ó 24.735 segundos
+Tiempo adicional: 4698 milisegundos ó 4.698 segundos
+Tiempo total en contar el numero de veces que aparece en total y en cuantos archivos aparece: 17919 milisegundos ó 17.919 segundos
+Tiempo total de ejecucion de la aplicación:  17920 milisegundos ó 17.92 segundos

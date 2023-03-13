@@ -101,7 +101,7 @@ public class Actividad_6 {
             long finA;
             long tiempoA;
             inicioA = System.currentTimeMillis();
-            File archivo = new File("Actividad6/matchesAcrossFiles.txt");
+            File archivo = new File("Actividad_6/matchesAcrossFiles.txt");
 
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
@@ -131,7 +131,7 @@ public class Actividad_6 {
                 String palabra = entry.getKey();
                 Integer cuenta = entry.getValue();
 
-                escritor.write(palabra + "; " + cuenta + " veces repetidas." + ";" + getRepeticionesPorArchivo().get(palabra) + " coincidencias por archivo" + "\n");
+                escritor.write(palabra + "; " + cuenta + " veces repetidas." + "; " + getRepeticionesPorArchivo().get(palabra) + " coincidencias por archivo" + "\n");
             }
             escritor.close();
         } catch (IOException e) {

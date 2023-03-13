@@ -63,7 +63,7 @@ public class Actividad_2 {
 
     public File CreateNewFiles(File name) {
         try {
-            String dirAndFile = "RemovedHTML/remove_HTML_";
+            String dirAndFile = "Actividad_2/remove_HTML_";
             File archivo = new File(dirAndFile + name.getName());
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {

@@ -1,5 +1,5 @@
-AllWords\allWords.txt Tiempo: 347 milisegundos
+Actividad_4\allWords.txt Tiempo: 378 milisegundos
 
-Tiempo adicional: 4054 milisegundos ó 4.054 segundos
-Tiempo total en juntar las palabras de todos los archivos: 347 milisegundos ó 0.347 segundos
-Tiempo total de ejecucion de la aplicación:  4414 milisegundos ó 4.414 segundos
+Tiempo adicional: 4698 milisegundos ó 4.698 segundos
+Tiempo total en juntar las palabras de todos los archivos: 378 milisegundos ó 0.378 segundos
+Tiempo total de ejecucion de la aplicación:  379 milisegundos ó 0.379 segundos

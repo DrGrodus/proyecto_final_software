@@ -167,7 +167,6 @@ public class ProyectoSoftware {
                     break;
 
                 case 6:
-                    System.out.println("WIP5");
                     tiempoEjecucion = 0;
                     tiempoAct = 0;
                     tiempoAdicional = 0;
@@ -260,7 +259,6 @@ public class ProyectoSoftware {
                         break;
 
                     case 6:
-                        System.out.println("WIP5");
                         if (tiempoAdicional > 0) {
                             escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " + "ó " + valorAdc + " segundos");
                         }

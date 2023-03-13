@@ -43,11 +43,11 @@ public class Actividad_3 {
         long inicioAct;
         long finAct;
         long tiempoAct = 0;
-        String Path = new File("").getAbsolutePath().concat("\\RemovedHTML");
+        String Path = new File("").getAbsolutePath().concat("\\Actividad_2");
         final File folderBuscar = new File(Path);
 
         try {
-            File archivo = new File("RemovedHTML");
+            File archivo = new File("Actividad_2");
             if (archivo.exists()) {
                 inicioAct = System.currentTimeMillis();
                 List<File> fileList = LectorDirectorios(folderBuscar);
@@ -83,7 +83,7 @@ public class Actividad_3 {
 
     public File CreateNewFiles(File name) {
         try {
-            String dirAndFile = "OnlyWords/onlyWords";
+            String dirAndFile = "Actividad_3/onlyWords";
 
             String fileName = name.getName();
             fileName = fileName.replaceAll("remove_HTML", "");

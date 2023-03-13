@@ -65,7 +65,7 @@ public class Actividad_5 {
             long inicioAct;
             long finAct;
             inicioAct = System.currentTimeMillis();
-            File archivo = new File("UniqueWords/uniqueWords.txt");
+            File archivo = new File("Actividad_5/uniqueWords.txt");
 
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {

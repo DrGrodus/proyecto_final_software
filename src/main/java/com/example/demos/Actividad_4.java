@@ -52,7 +52,7 @@ public class Actividad_4 {
             long inicioAct;
             long finAct;
             inicioAct = System.currentTimeMillis();
-            File archivo = new File("AllWords/allWords.txt");
+            File archivo = new File("Actividad_4/allWords.txt");
 
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
