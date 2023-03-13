@@ -181,6 +181,7 @@ public class ProyectoSoftware {
 
                     act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
                     act6.Contabilizar();
+                    tiempoAct = act6.getTiempoAct();
 
 
                     /* Metodos */
@@ -190,7 +191,7 @@ public class ProyectoSoftware {
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
                     registros = null;
-                    //registros = act5.getRegistros();
+                    registros = act6.getRegistros();
 
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
@@ -260,6 +261,10 @@ public class ProyectoSoftware {
 
                     case 6:
                         System.out.println("WIP5");
+                        if (tiempoAdicional > 0) {
+                            escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " + "ó " + valorAdc + " segundos");
+                        }
+                        escritor.write("\nTiempo total en contar el numero de veces que aparece en total y en cuantos archivos aparece: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
 
                         break;
 

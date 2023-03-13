@@ -57,10 +57,13 @@ public class Actividad_6 {
     }
 
     public void Contabilizar() {
+        long inicioAct;
+        long finAct;
+        long tiempoAct;
 
-        int a = getPalabrasPorArchivo().size();
         TreeMap<String, Integer> repeticionesG = new TreeMap<>();
         TreeMap<String, Integer> repeticionesPA = new TreeMap<>();
+        inicioAct = System.currentTimeMillis();
 
         for (int i = 0; i < getPalabrasPorArchivo().size(); i++) { // leer archivo por archivo
             TreeMap<String, Integer> auxiliar = new TreeMap<>();
@@ -84,17 +87,21 @@ public class Actividad_6 {
         }
         setRepeticionesGlobales(repeticionesG);
         setRepeticionesPorArchivo(repeticionesPA);
-        CrearArchivo();
+        finAct = System.currentTimeMillis();
+        tiempoAct = finAct - inicioAct;
+
+        CrearArchivo(tiempoAct);
     }
 
 
-    public void CrearArchivo() {
+    public void CrearArchivo(long tiempoAct) {
         Map<File, Long> registro = new HashMap<>();
         try {
-            long inicioAct;
-            long finAct;
-            inicioAct = System.currentTimeMillis();
-            File archivo = new File("MatchesAcrossFiles/matchesAcrossFiles.txt");
+            long inicioA;
+            long finA;
+            long tiempoA;
+            inicioA = System.currentTimeMillis();
+            File archivo = new File("Actividad6/matchesAcrossFiles.txt");
 
             if (archivo.getParentFile().mkdir() || archivo.getParentFile().exists()) {
                 if (archivo.createNewFile()) {
@@ -103,8 +110,11 @@ public class Actividad_6 {
                     EscribirArchivo(archivo);
                 }
             }
-            finAct = System.currentTimeMillis();
-            setTiempoAct(finAct - inicioAct);
+            finA = System.currentTimeMillis();
+            //setTiempoAct(finAct - inicioAct);
+            tiempoA = finA - inicioA;
+            tiempoA += tiempoAct;
+            setTiempoAct(tiempoA);
 
             registro.put(archivo, getTiempoAct());
             TreeMap<File, Long> mapa = new TreeMap<>(registro);
@@ -117,12 +127,12 @@ public class Actividad_6 {
     public void EscribirArchivo(File archivo) {
         try {
             FileWriter escritor = new FileWriter(archivo);
-            /*for(Map.Entry<String, Integer> entry : getpalabrasUnicas().entrySet()) {
+            for(Map.Entry<String, Integer> entry : getRepeticionesGlobales().entrySet()) {
                 String palabra = entry.getKey();
                 Integer cuenta = entry.getValue();
 
-                //escritor.write(palabra + "; " + cuenta + " veces repetidas.\n");
-            }*/
+                escritor.write(palabra + "; " + cuenta + " veces repetidas." + ";" + getRepeticionesPorArchivo().get(palabra) + " coincidencias por archivo" + "\n");
+            }
             escritor.close();
         } catch (IOException e) {
             System.out.println("Error IO");
