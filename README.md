@@ -8,7 +8,7 @@
 ## Fase 2
 * Actividad 4 	100%
 * Actividad 5 	100%
-* Actividad 6 	60%
+* Actividad 6 	100%
 
 ## Fase 3
 * Actividad 7 	0%
