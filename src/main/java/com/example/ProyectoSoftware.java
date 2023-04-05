@@ -9,7 +9,7 @@ import java.util.*;
 
 public class ProyectoSoftware {
     static Integer response = 1;
-    static String folderNoHTML = "RemovedHTML";
+    //static String folderNoHTML = "RemovedHTML";
     static Actividad_1 act1 = new Actividad_1();
     static Actividad_2 act2 = new Actividad_2();
     static Actividad_3 act3 = new Actividad_3();
@@ -89,7 +89,7 @@ public class ProyectoSoftware {
                     tiempoAct = 0;
                     inicioEjecucion = System.currentTimeMillis();
                     long tiempoAdicional = 0;
-                    String pathFolder = new File("").getAbsolutePath().concat("\\" + folderNoHTML);
+                    String pathFolder = new File("").getAbsolutePath().concat("\\" + "Actividad_2");
                     File folderNOHTML = new File(pathFolder);
                     if (!folderNOHTML.exists()) {
                         act2.LectorArchivos(fileList);
@@ -113,7 +113,7 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* Metodos */
+                    /* <Metodos> */
                     if (act3.getCollecionDePalabras() == null) {
                         act3.ListadoDeArchivos();
                     }
@@ -122,7 +122,7 @@ public class ProyectoSoftware {
                     act4.setTodasLasPalabras(act3.getCollecionDePalabras());
                     act4.CrearArchivo();
                     tiempoAct = act4.getTiempoAct();
-                    /* Metodos */
+                    /* </Metodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -140,7 +140,7 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* Metodos */
+                    /* <Metodos> */
                     if (act4.getPalabrasOrdenadas() == null) {
                         act3.ListadoDeArchivos();
                         act4.setTodasLasPalabras(act3.getCollecionDePalabras());
@@ -152,8 +152,7 @@ public class ProyectoSoftware {
                     act5.setListado(act4.getPalabrasOrdenadas());
                     act5.LeerListaDePalabras();
                     tiempoAct = act5.getTiempoAct();
-
-                    /* Metodos */
+                    /* </Metodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -172,7 +171,7 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* Metodos */
+                    /* <Metodos> */
                     if (act3.getCollecionDePalabras() == null) {
                         act3.ListadoDeArchivos();
                     }
@@ -181,9 +180,7 @@ public class ProyectoSoftware {
                     act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
                     act6.Contabilizar();
                     tiempoAct = act6.getTiempoAct();
-
-
-                    /* Metodos */
+                    /* </Metodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -198,6 +195,33 @@ public class ProyectoSoftware {
                 case 7:
                     System.out.println("WIP6");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Metodos> */
+                    if (act3.getCollecionDePalabras() == null) {
+                        act3.ListadoDeArchivos();
+                    }
+                    tiempoAdicional += act3.getTiempoAct();
+
+                    act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
+                    act6.Contabilizar();
+                    tiempoAct = act6.getTiempoAct();
+
+
+
+
+                    /* </Metodos> */
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    registros = null;
+                    //registros = act7.getRegistros();
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
 
                 case 0:

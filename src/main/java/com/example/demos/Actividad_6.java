@@ -131,7 +131,7 @@ public class Actividad_6 {
                 String palabra = entry.getKey();
                 Integer cuenta = entry.getValue();
 
-                escritor.write(palabra + "; " + cuenta + " veces repetidas." + "; " + getRepeticionesPorArchivo().get(palabra) + " coincidencias por archivo" + "\n");
+                escritor.write(palabra + "; " + cuenta + " veces repetidas." + "; " + getRepeticionesPorArchivo().get(palabra) + " archivos coincidentes" + "\n");
             }
             escritor.close();
         } catch (IOException e) {
