@@ -35,7 +35,6 @@ public class Actividad_2 {
         long inicioAct;
         long finAct;
         long tiempoA;
-        File nameFile;
         inicioAct = System.currentTimeMillis();
         RouteToCNF(fileList, registro);
         finAct = System.currentTimeMillis();

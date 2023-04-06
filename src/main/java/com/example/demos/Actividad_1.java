@@ -33,7 +33,6 @@ public class Actividad_1 {
         try {
             inicioAct = System.currentTimeMillis();
             String dirAndFile = "CS13309_Archivos_HTML/Files/";
-            long auxtemp = 0;
             for (File fileIndex : fileList) {
                 long inicio;
                 long fin;
