@@ -75,11 +75,11 @@ public class Actividad_6 {
                     repeticionesG.put(elem, 1);
                 }
             }
-            for(Map.Entry<String, Integer> entrada : repeticionesG.entrySet()){
+            for (Map.Entry<String, Integer> entrada : repeticionesG.entrySet()) {
                 String palabra = entrada.getKey();
                 Integer contador = entrada.getValue();
-                if(repeticionesPA.containsKey(palabra)){
-                    repeticionesPA.put(palabra, contador+1);
+                if (repeticionesPA.containsKey(palabra)) {
+                    repeticionesPA.put(palabra, contador + 1);
                 } else {
                     repeticionesPA.put(palabra, 1);
                 }
@@ -127,7 +127,7 @@ public class Actividad_6 {
     public void EscribirArchivo(File archivo) {
         try {
             FileWriter escritor = new FileWriter(archivo);
-            for(Map.Entry<String, Integer> entry : getRepeticionesGlobales().entrySet()) {
+            for (Map.Entry<String, Integer> entry : getRepeticionesGlobales().entrySet()) {
                 String palabra = entry.getKey();
                 Integer cuenta = entry.getValue();
 

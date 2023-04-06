@@ -7,12 +7,10 @@ import java.util.regex.Pattern;
 
 public class Actividad_3 {
 
-    private long tiempoAct;
-
-    private TreeMap<File, Long> registros;
-
-    private List<String> collecionDePalabras;
     private final List recolector = new ArrayList<>();
+    private long tiempoAct;
+    private TreeMap<File, Long> registros;
+    private List<String> collecionDePalabras;
 
     public long getTiempoAct() {
         return tiempoAct;
