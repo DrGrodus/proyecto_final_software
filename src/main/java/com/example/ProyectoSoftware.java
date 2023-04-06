@@ -201,14 +201,18 @@ public class ProyectoSoftware {
                     inicioEjecucion = System.currentTimeMillis();
 
                     /* <Metodos> */
-                    if (act3.getCollecionDePalabras() == null) {
+
+                    act7.ContarYRelacionar();
+
+
+                    /*if (act3.getCollecionDePalabras() == null) {
                         act3.ListadoDeArchivos();
                     }
-                    tiempoAdicional += act3.getTiempoAct();
+                    tiempoAdicional += act3.getTiempoAct();*/
 
-                    act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
+                    /*act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
                     act6.Contabilizar();
-                    tiempoAct = act6.getTiempoAct();
+                    tiempoAct = act6.getTiempoAct();*/
 
 
 
