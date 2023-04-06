@@ -202,7 +202,7 @@ public class ProyectoSoftware {
 
                     /* <Metodos> */
 
-                    act7.ContarYRelacionar();
+                    act7.RecolectarYRelacionar();
 
 
                     /*if (act3.getCollecionDePalabras() == null) {
@@ -211,7 +211,7 @@ public class ProyectoSoftware {
                     tiempoAdicional += act3.getTiempoAct();*/
 
                     /*act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
-                    act6.Contabilizar();
+                    act6.RecolectarPalabras();
                     tiempoAct = act6.getTiempoAct();*/
 
 

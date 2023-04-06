@@ -77,7 +77,7 @@ public class Actividad_4 {
             FileWriter escritor = new FileWriter(archivo);
             List<String> todasLP = new ArrayList<>();
             for (int i = 0; i < getTodasLasPalabras().size(); i++) {
-                List<String> aux = (List<String>) getTodasLasPalabras().get(i);
+                List<String> aux = getTodasLasPalabras().get(i);
                 for (int j = 0; j < aux.size(); j++) {
                     todasLP.add(aux.get(j));
                 }

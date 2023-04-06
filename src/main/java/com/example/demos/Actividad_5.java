@@ -3,7 +3,10 @@ package com.example.demos;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Actividad_5 {
 
@@ -45,14 +48,14 @@ public class Actividad_5 {
     }
 
 
-    public void LeerListaDePalabras () {
+    public void LeerListaDePalabras() {
         TreeMap<String, Integer> contadorPalabrasUnicas = new TreeMap<>();
 
-        for(String elem : getListado()) {
-            if(contadorPalabrasUnicas.containsKey(elem)) {
-                contadorPalabrasUnicas.put(elem, contadorPalabrasUnicas.get(elem)+1);
+        for (String elem : getListado()) {
+            if (contadorPalabrasUnicas.containsKey(elem)) {
+                contadorPalabrasUnicas.put(elem, contadorPalabrasUnicas.get(elem) + 1);
             } else {
-                contadorPalabrasUnicas.put(elem,1);
+                contadorPalabrasUnicas.put(elem, 1);
             }
         }
         setpalabrasUnicas(contadorPalabrasUnicas);
@@ -88,7 +91,7 @@ public class Actividad_5 {
     public void EscribirArchivo(File archivo) {
         try {
             FileWriter escritor = new FileWriter(archivo);
-            for(Map.Entry<String, Integer> entry : getpalabrasUnicas().entrySet()) {
+            for (Map.Entry<String, Integer> entry : getpalabrasUnicas().entrySet()) {
                 String palabra = entry.getKey();
                 Integer cuenta = entry.getValue();
 
