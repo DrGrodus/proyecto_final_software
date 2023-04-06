@@ -205,18 +205,6 @@ public class ProyectoSoftware {
                     act7.RecolectarYRelacionar();
 
 
-                    /*if (act3.getCollecionDePalabras() == null) {
-                        act3.ListadoDeArchivos();
-                    }
-                    tiempoAdicional += act3.getTiempoAct();*/
-
-                    /*act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
-                    act6.RecolectarPalabras();
-                    tiempoAct = act6.getTiempoAct();*/
-
-
-
-
                     /* </Metodos> */
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();

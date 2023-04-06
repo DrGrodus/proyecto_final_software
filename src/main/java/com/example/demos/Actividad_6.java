@@ -66,7 +66,6 @@ public class Actividad_6 {
         inicioAct = System.currentTimeMillis();
 
         for (int i = 0; i < getPalabrasPorArchivo().size(); i++) { // leer archivo por archivo
-            TreeMap<String, Integer> auxiliar = new TreeMap<>();
             List<String> aux = getPalabrasPorArchivo().get(i);
             for (String elem : aux) { // leer palabra por palabra
                 if (repeticionesG.containsKey(elem)) {

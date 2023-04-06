@@ -156,7 +156,6 @@ public class Actividad_7 {
                 }
             }
         }
-        System.out.println(repeticionesG);
     }
 
     public List<File> LectorDirectorios(final File folder) {

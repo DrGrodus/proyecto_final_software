@@ -7,10 +7,10 @@ import java.util.regex.Pattern;
 
 public class Actividad_3 {
 
-    private final List recolector = new ArrayList<>();
+    private final List<Object> recolector = new ArrayList<>();
     private long tiempoAct;
     private TreeMap<File, Long> registros;
-    private List<String> collecionDePalabras;
+    private List collecionDePalabras;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -40,7 +40,7 @@ public class Actividad_3 {
         Map<File, Long> registro = new HashMap<>();
         long inicioAct;
         long finAct;
-        long tiempoAct = 0;
+        long tiempoAct;
         String Path = new File("").getAbsolutePath().concat("\\Actividad_2");
         final File folderBuscar = new File(Path);
 
