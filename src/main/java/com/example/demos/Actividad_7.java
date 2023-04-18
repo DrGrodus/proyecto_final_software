@@ -1,18 +1,21 @@
 package com.example.demos;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class Actividad_7 {
 
+    private final List recolector = new ArrayList<>();
     private long tiempoAct;
     private TreeMap<File, Long> registros;
     private File Diccionario;
-
     private File Posting;
     private List collecionDePalabras;
-    private final List recolector = new ArrayList<>();
     private List<List<String>> palabrasPorArchivo;
+    private List<File> fileNames;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -62,6 +65,14 @@ public class Actividad_7 {
         this.palabrasPorArchivo = palabrasPorArchivo;
     }
 
+    public List<File> getFileNames() {
+        return fileNames;
+    }
+
+    public void setFileNames(List<File> fileNames) {
+        this.fileNames = fileNames;
+    }
+
     public void RecolectarYRelacionar() {
         long inicioAct;
         long finAct;
@@ -76,7 +87,9 @@ public class Actividad_7 {
             if (archivo.exists()) {
                 inicioAct = System.currentTimeMillis();
                 List<File> fileList = LectorDirectorios(folderBuscar);
-                CrearArchivos(fileList);
+                setFileNames(fileList);
+                CrearArchivos();
+                RecolectarPalabras(fileList);
                 finAct = System.currentTimeMillis();
                 tiempoAct = finAct - inicioAct;
                 setTiempoAct(tiempoAct);
@@ -93,69 +106,82 @@ public class Actividad_7 {
         tiempoAct = finAct - inicioAct;
     }
 
-    public void CrearArchivos (List<File> fileList) {
+    public void CrearArchivos() {
         try {
             String diccionario = "Actividad_7/Diccionario.txt";
             String posting = "Actividad_7/posting.txt";
 
+            File dcc = new File(diccionario);
+            setDiccionario(dcc);
+            File ping = new File(posting);
+            setPosting(ping);
+            dcc.createNewFile();
+            ping.createNewFile();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void RecolectarPalabras(List<File> fileList) {
+        try {
+            List<List<String>> todasLasPalabras = new ArrayList<>();
             for (File name : fileList) {
-                String fileName = name.getName();
-                fileName = fileName.replaceAll("onlyWords_", "");
-                File dcc = new File(diccionario);
-                setDiccionario(dcc);
-                File ping = new File(posting);
-                setPosting(ping);
-                if (dcc.getParentFile().mkdir() || dcc.getParentFile().exists()) {
-                    if (dcc.createNewFile()) {
-                        RecolectarPalabras(name, fileName);
-                    } else if (ping.createNewFile()) {
-                        RecolectarPalabras(name, fileName);
+                File file = new File(name.toURI());
+                // Declarando el objeto de la clase StringBuilder
+                StringBuilder builder = new StringBuilder();
+                BufferedReader buffer = new BufferedReader(new FileReader(file));
+                String str;
+                List<String> palabrasDelArchivo = new ArrayList<>();
+                palabrasDelArchivo.add(name.getName().replaceAll("onlyWords_", ""));
+
+                // Checa la condicional por el método buffer.readLine()
+                // mientras sea verdadero el ciclo while correra
+                while ((str = buffer.readLine()) != null) {
+                    palabrasDelArchivo.add(str);
+                }
+                todasLasPalabras.add(palabrasDelArchivo);
+            }
+            Relacionar(todasLasPalabras);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Relacionar(List<List<String>> todasLasPalabras) {
+
+        TreeMap<String, Integer> diccionarioPT1 = new TreeMap<>();
+        TreeMap<String, Integer> diccionarioPT2 = new TreeMap<>();
+        TreeMap<String, Integer> posting = new TreeMap<>();
+
+        TreeMap<String, Integer> repeticionesG = new TreeMap<>();
+        TreeMap<String, Integer> repeticionesPA = new TreeMap<>();
+
+        for (int i = 0; i < todasLasPalabras.size(); i++) {
+            List<String> aux = todasLasPalabras.get(i);
+            for (String elem : aux) {
+                if (!Objects.equals(elem, "[(A-z\\d).html]+")) {
+                    if (repeticionesG.containsKey(elem)) {
+                        repeticionesG.put(elem, repeticionesG.get(elem) + 1);
                     } else {
-                        RecolectarPalabras(name, fileName);
+                        repeticionesG.put(elem, 1);
                     }
                 }
             }
-            Relacionar();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void RecolectarPalabras(File name, String fileName) {
-        try {
-            File file = new File(name.toURI());
-            // Declarando el objeto de la clase StringBuilder
-            StringBuilder builder = new StringBuilder();
-            BufferedReader buffer = new BufferedReader(new FileReader(file));
-            String str;
-            List<String> palabrasPorArchivo = new ArrayList<>();
-
-            // Checa la condicional por el método buffer.readLine()
-            // mientras sea verdadero el ciclo while correra
-            while ((str = buffer.readLine()) != null) {
-                palabrasPorArchivo.add(str);
-            }
-            recolector.add(palabrasPorArchivo);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void Relacionar () {
-        setCollecionDePalabras(recolector);
-        setPalabrasPorArchivo(getCollecionDePalabras());
-
-        TreeMap<String, Integer> repeticionesG = new TreeMap<>();
-        for (int i = 0; i < getCollecionDePalabras().size(); i++) {
-            List<String> aux = getPalabrasPorArchivo().get(i);
-            for (String elem : aux) {
-                if (repeticionesG.containsKey(elem)) {
-                    repeticionesG.put(elem, repeticionesG.get(elem) + 1);
+            for (Map.Entry<String, Integer> entrada : repeticionesG.entrySet()) {
+                String palabra = entrada.getKey();
+                Integer contador = entrada.getValue();
+                if (repeticionesPA.containsKey(palabra)) {
+                    repeticionesPA.put(palabra, contador + 1);
                 } else {
-                    repeticionesG.put(elem, 1);
+                    repeticionesPA.put(palabra, 1);
                 }
             }
         }
+
+
+
     }
 
     public List<File> LectorDirectorios(final File folder) {
