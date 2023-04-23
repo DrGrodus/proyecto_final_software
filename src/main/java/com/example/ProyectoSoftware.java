@@ -113,7 +113,7 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* <Metodos> */
+                    /* <Métodos> */
                     if (act3.getCollecionDePalabras() == null) {
                         act3.ListadoDeArchivos();
                     }
