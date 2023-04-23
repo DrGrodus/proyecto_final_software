@@ -1,9 +1,6 @@
 package com.example.demos;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Actividad_7 {
@@ -107,7 +104,7 @@ public class Actividad_7 {
     public void CrearArchivos() {
         try {
             String diccionario = "Actividad_7/Diccionario.txt";
-            String posting = "Actividad_7/posting.txt";
+            String posting = "Actividad_7/Posting.txt";
 
             File dcc = new File(diccionario);
             setDiccionario(dcc);
@@ -168,7 +165,6 @@ public class Actividad_7 {
                     fileNames.add(aux.get(0));
                 }
                 i = 1;
-
             }
             repeticionesPorArchivo.add(repeticionesPA);
         }
@@ -182,15 +178,9 @@ public class Actividad_7 {
                 if (repeticionesGlobales.containsKey(palabra)) {
                     repeticionesGlobales.put(palabra, repeticionesGlobales.get(palabra) + 1);
 
-                    /*System.out.println(relacionPalabraArchivo.get(palabra));
-                    System.out.println(repeticionesGlobales.get(palabra));
-                    System.out.println(relacionPalabraArchivo.get(palabra));
-                    System.out.println(fileNames.get(j));
-                    System.out.println(relacionPalabraArchivo.get(palabra).contains(fileNames.get(j)));*/
                     if (!relacionPalabraArchivo.get(palabra).contains(fileNames.get(j))) {
                         aux = relacionPalabraArchivo.get(palabra);
                         aux.add(fileNames.get(j));
-                        //relacionPalabraArchivo.get(palabra);
                         relacionPalabraArchivo.put(palabra, aux);
                     }
 
@@ -202,8 +192,40 @@ public class Actividad_7 {
             }
             j++;
         }
+        EscribirArchivos(relacionPalabraArchivo, repeticionesPorArchivo);
 
     }
+
+    public void EscribirArchivos(TreeMap<String, List<String>> relacionPalabraArchivo, List<TreeMap<String, Integer>> repeticionesPorArchivo) {
+        try {
+            FileWriter escritorDCC = new FileWriter(getDiccionario());
+            FileWriter escritorPst = new FileWriter(getPosting());
+
+            // Archivo Posting
+            for (TreeMap<String, Integer> repeticionesPoA : repeticionesPorArchivo) {
+                for (Map.Entry<String, Integer> entradaPoA : repeticionesPoA.entrySet()) {
+                    String palabraPoA = entradaPoA.getKey();
+                    Integer coincidencias = entradaPoA.getValue();
+                    List<String> tmp = relacionPalabraArchivo.get(palabraPoA);
+                    for (String elem : tmp) {
+                        escritorPst.write(elem + "; " + coincidencias + "\n");
+                    }
+                }
+            }
+
+            // Archivo Diccionario
+            for (Map.Entry<String, List<String>> entradaRPA : relacionPalabraArchivo.entrySet()) {
+                String palabraRPA = entradaRPA.getKey();
+                List<String> archivos = entradaRPA.getValue();
+                //escritorDCC.write("[Nombre de la palabra]" + "[Numero de archivos]" + "[Índice inicial, en el archivo posting, de la palabra]");
+            }
+
+
+        } catch (IOException e) {
+            System.out.println("Error IO");
+        }
+    }
+
 
     public List<File> LectorDirectorios(final File folder) {
         List<File> fileList = new ArrayList<>();
