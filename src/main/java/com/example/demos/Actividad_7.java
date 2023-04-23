@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class Actividad_7 {
-
-    private final List recolector = new ArrayList<>();
     private long tiempoAct;
     private TreeMap<File, Long> registros;
     private File Diccionario;
@@ -150,37 +148,60 @@ public class Actividad_7 {
 
     public void Relacionar(List<List<String>> todasLasPalabras) {
 
-        TreeMap<String, Integer> diccionarioPT1 = new TreeMap<>();
-        TreeMap<String, Integer> diccionarioPT2 = new TreeMap<>();
-        TreeMap<String, Integer> posting = new TreeMap<>();
+        TreeMap<String, Integer> repeticionesGlobales = new TreeMap<>();
+        List<TreeMap<String, Integer>> repeticionesPorArchivo = new ArrayList<>();
 
-        TreeMap<String, Integer> repeticionesG = new TreeMap<>();
-        TreeMap<String, Integer> repeticionesPA = new TreeMap<>();
+        TreeMap<String, List<String>> relacionPalabraArchivo = new TreeMap<>();
 
-        for (int i = 0; i < todasLasPalabras.size(); i++) {
-            List<String> aux = todasLasPalabras.get(i);
+        List<String> fileNames = new ArrayList<>();
+        for (List<String> aux : todasLasPalabras) {
+            int i = 0;
+            TreeMap<String, Integer> repeticionesPA = new TreeMap<>();
             for (String elem : aux) {
-                if (!Objects.equals(elem, "[(A-z\\d).html]+")) {
-                    if (repeticionesG.containsKey(elem)) {
-                        repeticionesG.put(elem, repeticionesG.get(elem) + 1);
+                if (i == 1) {
+                    if (repeticionesPA.containsKey(elem)) {
+                        repeticionesPA.put(elem, repeticionesPA.get(elem) + 1);
                     } else {
-                        repeticionesG.put(elem, 1);
+                        repeticionesPA.put(elem, 1);
                     }
-                }
-            }
-
-            for (Map.Entry<String, Integer> entrada : repeticionesG.entrySet()) {
-                String palabra = entrada.getKey();
-                Integer contador = entrada.getValue();
-                if (repeticionesPA.containsKey(palabra)) {
-                    repeticionesPA.put(palabra, contador + 1);
                 } else {
-                    repeticionesPA.put(palabra, 1);
+                    fileNames.add(aux.get(0));
+                }
+                i = 1;
+
+            }
+            repeticionesPorArchivo.add(repeticionesPA);
+        }
+        int j = 0;
+
+        for (TreeMap<String, Integer> repeticionesPoA : repeticionesPorArchivo) {
+            for (Map.Entry<String, Integer> entrada : repeticionesPoA.entrySet()) {
+                String palabra = entrada.getKey();
+                List<String> aux = new ArrayList<>();
+
+                if (repeticionesGlobales.containsKey(palabra)) {
+                    repeticionesGlobales.put(palabra, repeticionesGlobales.get(palabra) + 1);
+
+                    /*System.out.println(relacionPalabraArchivo.get(palabra));
+                    System.out.println(repeticionesGlobales.get(palabra));
+                    System.out.println(relacionPalabraArchivo.get(palabra));
+                    System.out.println(fileNames.get(j));
+                    System.out.println(relacionPalabraArchivo.get(palabra).contains(fileNames.get(j)));*/
+                    if (!relacionPalabraArchivo.get(palabra).contains(fileNames.get(j))) {
+                        aux = relacionPalabraArchivo.get(palabra);
+                        aux.add(fileNames.get(j));
+                        //relacionPalabraArchivo.get(palabra);
+                        relacionPalabraArchivo.put(palabra, aux);
+                    }
+
+                } else {
+                    repeticionesGlobales.put(palabra, 1);
+                    aux.add(fileNames.get(j));
+                    relacionPalabraArchivo.put(palabra, aux);
                 }
             }
+            j++;
         }
-
-
 
     }
 
