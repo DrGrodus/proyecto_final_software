@@ -8,9 +8,6 @@ public class Actividad_7 {
     private TreeMap<File, Long> registros;
     private File Diccionario;
     private File Posting;
-    private List collecionDePalabras;
-    private List<List<String>> palabrasPorArchivo;
-    private List<File> fileNames;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -44,34 +41,11 @@ public class Actividad_7 {
         Posting = posting;
     }
 
-    public List getCollecionDePalabras() {
-        return collecionDePalabras;
-    }
-
-    public void setCollecionDePalabras(List collecionDePalabras) {
-        this.collecionDePalabras = collecionDePalabras;
-    }
-
-    public List<List<String>> getPalabrasPorArchivo() {
-        return palabrasPorArchivo;
-    }
-
-    public void setPalabrasPorArchivo(List<List<String>> palabrasPorArchivo) {
-        this.palabrasPorArchivo = palabrasPorArchivo;
-    }
-
-    public List<File> getFileNames() {
-        return fileNames;
-    }
-
-    public void setFileNames(List<File> fileNames) {
-        this.fileNames = fileNames;
-    }
-
     public void RecolectarYRelacionar() {
         long inicioAct;
         long finAct;
         long tiempoAct;
+        Map<File, Long> registro = new HashMap<>();
         inicioAct = System.currentTimeMillis();
 
         String Path = new File("").getAbsolutePath().concat("\\Actividad_3");
@@ -82,7 +56,6 @@ public class Actividad_7 {
             if (archivo.exists()) {
                 inicioAct = System.currentTimeMillis();
                 List<File> fileList = LectorDirectorios(folderBuscar);
-                setFileNames(fileList);
                 CrearArchivos();
                 RecolectarPalabras(fileList);
                 finAct = System.currentTimeMillis();
@@ -124,7 +97,6 @@ public class Actividad_7 {
             for (File name : fileList) {
                 File file = new File(name.toURI());
                 // Declarando el objeto de la clase StringBuilder
-                StringBuilder builder = new StringBuilder();
                 BufferedReader buffer = new BufferedReader(new FileReader(file));
                 String str;
                 List<String> palabrasDelArchivo = new ArrayList<>();
@@ -202,6 +174,9 @@ public class Actividad_7 {
             FileWriter escritorDCC = new FileWriter(getDiccionario());
             FileWriter escritorPst = new FileWriter(getPosting());
 
+            int j = 1;
+            List<Integer> indices = new ArrayList<>();
+            indices.add(0);
             // Archivo Posting
             for (TreeMap<String, Integer> repeticionesPoA : repeticionesPorArchivo) {
                 for (Map.Entry<String, Integer> entradaPoA : repeticionesPoA.entrySet()) {
@@ -211,16 +186,21 @@ public class Actividad_7 {
                     for (String elem : tmp) {
                         escritorPst.write(elem + "; " + coincidencias + "\n");
                     }
+                    indices.add(tmp.size() + indices.get(j-1));
+                    j++;
                 }
             }
             escritorPst.close();
 
             // Archivo Diccionario
+            int k = 0;
             for (Map.Entry<String, List<String>> entradaRPA : relacionPalabraArchivo.entrySet()) {
                 String palabraRPA = entradaRPA.getKey();
                 List<String> archivos = entradaRPA.getValue();
-                //escritorDCC.write("[Nombre de la palabra]" + "[Numero de archivos]" + "[Índice inicial, en el archivo posting, de la palabra]");
+                escritorDCC.write(palabraRPA + ";" + archivos.size() + ";" + indices.get(k) + "\n");
+                k++;
             }
+            escritorDCC.close();
 
         } catch (IOException e) {
             System.out.println("Error IO");

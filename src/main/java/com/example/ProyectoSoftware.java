@@ -204,7 +204,6 @@ public class ProyectoSoftware {
 
                     act7.RecolectarYRelacionar();
 
-
                     /* </Metodos> */
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -231,8 +230,10 @@ public class ProyectoSoftware {
             if (!Objects.equals(archivoToLog, "")) {
                 FileWriter escritor = new FileWriter(archivoToLog);
 
-                for (File key : registros.keySet()) {
-                    escritor.write(key + " Tiempo: " + registros.get(key) + " milisegundos\n\n");
+                if(response != 7) {
+                    for (File key : registros.keySet()) {
+                        escritor.write(key + " Tiempo: " + registros.get(key) + " milisegundos\n\n");
+                    }
                 }
 
                 double valorAct = tiempoAct;
@@ -283,7 +284,6 @@ public class ProyectoSoftware {
                         break;
 
                     case 7:
-                        System.out.println("WIP6");
 
                         break;
 
