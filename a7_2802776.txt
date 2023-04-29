@@ -1,2 +1,2 @@
 
-Tiempo total de ejecucion de la aplicación:  5370 milisegundos ó 5.37 segundos
+Tiempo total de ejecucion de la aplicación:  3649 milisegundos ó 3.649 segundos

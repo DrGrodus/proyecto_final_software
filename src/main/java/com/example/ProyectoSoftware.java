@@ -18,6 +18,8 @@ public class ProyectoSoftware {
     static Actividad_6 act6 = new Actividad_6();
     static Actividad_7 act7 = new Actividad_7();
 
+    static Actividad_8 act8 = new Actividad_8();
+
     public static void main(String[] args) {
 
         System.out.println("Bienvenido!");
@@ -40,6 +42,8 @@ public class ProyectoSoftware {
                     "\n 5.- Actividad 5" +
                     "\n 6.- Actividad 6" +
                     "\n 7.- Actividad 7" +
+                    "\n 8.- Actividad 8" +
+                    "\n 9.- Actividad 9" +
                     "\n 0.- Salir" +
                     "");
             dato = scan.nextLine();
@@ -193,7 +197,6 @@ public class ProyectoSoftware {
                     break;
 
                 case 7:
-                    System.out.println("WIP6");
 
                     tiempoEjecucion = 0;
                     tiempoAct = 0;
@@ -210,9 +213,33 @@ public class ProyectoSoftware {
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
                     registros = null;
-                    //registros = act7.getRegistros();
 
                     PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
+                    break;
+
+                case 8:
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Metodos> */
+
+                    act8.RecolectarYRelacionar();
+
+                    /* </Metodos> */
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    registros = null;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
+                    break;
+
+                case 9:
+                    System.out.println("WIP1");
+
                     break;
 
                 case 0:
@@ -230,7 +257,7 @@ public class ProyectoSoftware {
             if (!Objects.equals(archivoToLog, "")) {
                 FileWriter escritor = new FileWriter(archivoToLog);
 
-                if(response != 7) {
+                if(registros != null) {
                     for (File key : registros.keySet()) {
                         escritor.write(key + " Tiempo: " + registros.get(key) + " milisegundos\n\n");
                     }
@@ -284,6 +311,8 @@ public class ProyectoSoftware {
                         break;
 
                     case 7:
+
+                    case 8:
 
                         break;
 

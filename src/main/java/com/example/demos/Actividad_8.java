@@ -3,12 +3,13 @@ package com.example.demos;
 import java.io.*;
 import java.util.*;
 
-public class Actividad_7 {
+public class Actividad_8 {
+
     private long tiempoAct;
     private TreeMap<File, Long> registros;
     private File Diccionario;
+    private File DiccionarioHT;
     private File Posting;
-    private File AuxPosting;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -34,20 +35,20 @@ public class Actividad_7 {
         Diccionario = diccionario;
     }
 
+    public File getDiccionarioHT() {
+        return DiccionarioHT;
+    }
+
+    public void setDiccionarioHT(File diccionarioHT) {
+        DiccionarioHT = diccionarioHT;
+    }
+
     public File getPosting() {
         return Posting;
     }
 
     public void setPosting(File posting) {
         Posting = posting;
-    }
-
-    public File getAuxPosting() {
-        return AuxPosting;
-    }
-
-    public void setAuxPosting(File auxPosting) {
-        AuxPosting = auxPosting;
     }
 
     public void RecolectarYRelacionar() {
@@ -66,6 +67,7 @@ public class Actividad_7 {
                 inicioAct = System.currentTimeMillis();
                 List<File> fileList = LectorDirectorios(folderBuscar);
                 CrearArchivos();
+                //RecolectarPalabras(fileList);
                 RecolectarPalabras(fileList);
                 finAct = System.currentTimeMillis();
                 tiempoAct = finAct - inicioAct;
@@ -79,31 +81,30 @@ public class Actividad_7 {
         }
         finAct = System.currentTimeMillis();
         tiempoAct = finAct - inicioAct;
+        setTiempoAct(tiempoAct);
     }
 
     public void CrearArchivos() {
         try {
-            String diccionario = "Actividad_7/Diccionario.txt";
-            String posting = "Actividad_7/Posting.txt";
-            String auxPos = "Actividad_7/Nota sobre 'Posting.txt'.txt";
+            String diccionario = "Actividad_8/Diccionario.txt";
+            String posting = "Actividad_8/Posting.txt";
+            String diccionarioHT = "Actividad_8/DiccionarioHT.txt";
 
             File dcc = new File(diccionario);
             setDiccionario(dcc);
             File ping = new File(posting);
             setPosting(ping);
-            File auxPst = new File(auxPos);
-            setAuxPosting(auxPst);
+            File dHT = new File(diccionarioHT);
+            setDiccionarioHT(dHT);
             if(dcc.getParentFile().mkdir() || dcc.getParentFile().exists()){
                 dcc.createNewFile();
             }
             if(ping.getParentFile().mkdir() || ping.getParentFile().exists()){
                 ping.createNewFile();
             }
-            if(auxPst.getParentFile().mkdir() || auxPst.getParentFile().exists()){
-                auxPst.createNewFile();
+            if(dHT.getParentFile().mkdir() || dHT.getParentFile().exists()){
+                dHT.createNewFile();
             }
-
-
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -115,7 +116,7 @@ public class Actividad_7 {
             List<List<String>> todasLasPalabras = new ArrayList<>();
             for (File name : fileList) {
                 File file = new File(name.toURI());
-                // Declarando el objeto de la clase StringBuilder
+                // Declarando el objeto de la clase BufferedReader
                 BufferedReader buffer = new BufferedReader(new FileReader(file));
                 String str;
                 List<String> palabrasDelArchivo = new ArrayList<>();
@@ -137,8 +138,15 @@ public class Actividad_7 {
     public void Relacionar(List<List<String>> todasLasPalabras) {
 
         TreeMap<String, Integer> repeticionesGlobales = new TreeMap<>();
+
+        /*
+            Muestra las repeticiones de palabras que existen en el archivo actual.
+         */
         List<TreeMap<String, Integer>> repeticionesPorArchivo = new ArrayList<>();
 
+        /*
+            Muestra la cantidad global de coincidencias de cada palabra, así como indicar en que archivos aparece
+         */
         TreeMap<String, List<String>> relacionPalabraArchivo = new TreeMap<>();
 
         List<String> fileNames = new ArrayList<>();
@@ -184,15 +192,15 @@ public class Actividad_7 {
             }
             j++;
         }
-        EscribirArchivos(relacionPalabraArchivo, repeticionesPorArchivo);
-
+        Hashtable<String, List<String>> hashDcc = new Hashtable<>(relacionPalabraArchivo);
+        EscribirArchivos(relacionPalabraArchivo, repeticionesPorArchivo, hashDcc);
     }
 
-    public void EscribirArchivos(TreeMap<String, List<String>> relacionPalabraArchivo, List<TreeMap<String, Integer>> repeticionesPorArchivo) {
+    public void EscribirArchivos(TreeMap<String, List<String>> relacionPalabraArchivo, List<TreeMap<String, Integer>> repeticionesPorArchivo, Hashtable<String, List<String>> hashDcc) {
         try {
             FileWriter escritorDCC = new FileWriter(getDiccionario());
             FileWriter escritorPst = new FileWriter(getPosting());
-            FileWriter escritorApt = new FileWriter(getAuxPosting());
+            FileWriter escritorDht = new FileWriter(getDiccionarioHT());
 
             int j = 1;
             List<Integer> indices = new ArrayList<>();
@@ -222,8 +230,16 @@ public class Actividad_7 {
             }
             escritorDCC.close();
 
-            escritorApt.write("El archivo que se genera es muy pesado para Github");
-            escritorApt.close();
+
+            // Archivo Diccionario con HashTable
+            int l = 0;
+            Set<Map.Entry<String, List<String>>> entradasHT = hashDcc.entrySet();
+            for(Map.Entry<String, List<String>> entradaHash : entradasHT) {
+                List<String> archivos = entradaHash.getValue();
+                escritorDht.write(entradaHash.getKey() + "; " + archivos.size() + "; " + indices.get(l)+ "\n");
+                l++;
+            }
+            escritorDht.close();
 
         } catch (IOException e) {
             System.out.println("Error IO");
