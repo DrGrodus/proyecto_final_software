@@ -6,7 +6,8 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-posting.txt
+/Actividad_7/Posting.txt
+/Actividad_8/Posting.txt
 
 # RemovedHTML/
 # OnlyWords/
