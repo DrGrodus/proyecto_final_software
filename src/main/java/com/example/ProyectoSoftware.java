@@ -20,6 +20,8 @@ public class ProyectoSoftware {
 
     static Actividad_8 act8 = new Actividad_8();
 
+    static Actividad_9 act9 = new Actividad_9();
+
     public static void main(String[] args) {
 
         System.out.println("Bienvenido!");

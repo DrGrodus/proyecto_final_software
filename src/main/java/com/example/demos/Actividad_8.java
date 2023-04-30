@@ -10,6 +10,7 @@ public class Actividad_8 {
     private File Diccionario;
     private File DiccionarioHT;
     private File Posting;
+    private File AuxPosting;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -51,6 +52,14 @@ public class Actividad_8 {
         Posting = posting;
     }
 
+    public File getAuxPosting() {
+        return AuxPosting;
+    }
+
+    public void setAuxPosting(File auxPosting) {
+        AuxPosting = auxPosting;
+    }
+
     public void RecolectarYRelacionar() {
         long inicioAct;
         long finAct;
@@ -89,6 +98,7 @@ public class Actividad_8 {
             String diccionario = "Actividad_8/Diccionario.txt";
             String posting = "Actividad_8/Posting.txt";
             String diccionarioHT = "Actividad_8/DiccionarioHT.txt";
+            String auxPos = "Actividad_8/Nota sobre 'Posting.txt'.txt";
 
             File dcc = new File(diccionario);
             setDiccionario(dcc);
@@ -96,6 +106,8 @@ public class Actividad_8 {
             setPosting(ping);
             File dHT = new File(diccionarioHT);
             setDiccionarioHT(dHT);
+            File auxPst = new File(auxPos);
+            setAuxPosting(auxPst);
             if(dcc.getParentFile().mkdir() || dcc.getParentFile().exists()){
                 dcc.createNewFile();
             }
@@ -105,6 +117,10 @@ public class Actividad_8 {
             if(dHT.getParentFile().mkdir() || dHT.getParentFile().exists()){
                 dHT.createNewFile();
             }
+            if(auxPst.getParentFile().mkdir() || auxPst.getParentFile().exists()){
+                auxPst.createNewFile();
+            }
+
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -201,6 +217,7 @@ public class Actividad_8 {
             FileWriter escritorDCC = new FileWriter(getDiccionario());
             FileWriter escritorPst = new FileWriter(getPosting());
             FileWriter escritorDht = new FileWriter(getDiccionarioHT());
+            FileWriter escritorApt = new FileWriter(getAuxPosting());
 
             int j = 1;
             List<Integer> indices = new ArrayList<>();
@@ -240,6 +257,10 @@ public class Actividad_8 {
                 l++;
             }
             escritorDht.close();
+
+
+            escritorApt.write("El archivo que se genera es muy pesado para Github");
+            escritorApt.close();
 
         } catch (IOException e) {
             System.out.println("Error IO");
