@@ -242,6 +242,32 @@ public class ProyectoSoftware {
                 case 9:
                     System.out.println("WIP1");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Metodos> */
+                    /*act7.RecolectarYRelacionar();
+                    tiempoAdicional += act7.getTiempoAct();
+
+                    act9.setDiccionarioList(act7.getDiccionarioList());
+                    act9.setPostingList(act7.getPostingList());
+
+                    act9.Limpiador();*/
+                    act9.Limpiador();
+
+
+
+                    /* </Metodos> */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    registros = null;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
                     break;
 
                 case 0:
@@ -315,6 +341,8 @@ public class ProyectoSoftware {
                     case 7:
 
                     case 8:
+
+                    case 9:
 
                         break;
 

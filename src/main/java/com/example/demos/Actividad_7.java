@@ -7,7 +7,9 @@ public class Actividad_7 {
     private long tiempoAct;
     private TreeMap<File, Long> registros;
     private File Diccionario;
+    private List<TreeMap<String, Integer>> DiccionarioList;
     private File Posting;
+    private TreeMap<String, List<String>> PostingList;
     private File AuxPosting;
 
     public long getTiempoAct() {
@@ -34,12 +36,28 @@ public class Actividad_7 {
         Diccionario = diccionario;
     }
 
+    public List<TreeMap<String, Integer>> getDiccionarioList() {
+        return DiccionarioList;
+    }
+
+    public void setDiccionarioList(List<TreeMap<String, Integer>> diccionarioList) {
+        DiccionarioList = diccionarioList;
+    }
+
     public File getPosting() {
         return Posting;
     }
 
     public void setPosting(File posting) {
         Posting = posting;
+    }
+
+    public TreeMap<String, List<String>> getPostingList() {
+        return PostingList;
+    }
+
+    public void setPostingList(TreeMap<String, List<String>> postingList) {
+        PostingList = postingList;
     }
 
     public File getAuxPosting() {
@@ -184,6 +202,8 @@ public class Actividad_7 {
             }
             j++;
         }
+        setDiccionarioList(repeticionesPorArchivo);
+        setPostingList(relacionPalabraArchivo);
         EscribirArchivos(relacionPalabraArchivo, repeticionesPorArchivo);
 
     }
