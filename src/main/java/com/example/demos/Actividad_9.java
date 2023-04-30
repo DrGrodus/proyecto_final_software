@@ -75,11 +75,6 @@ public class Actividad_9 {
         setStopList(stList);
 
         RecolectarYRelacionar();
-
-
-        //EscribirArchivos();
-
-
     }
 
     public void RecolectarYRelacionar() {
