@@ -78,9 +78,7 @@ public class Actividad_4 {
             List<String> todasLP = new ArrayList<>();
             for (int i = 0; i < getTodasLasPalabras().size(); i++) {
                 List<String> aux = getTodasLasPalabras().get(i);
-                for (int j = 0; j < aux.size(); j++) {
-                    todasLP.add(aux.get(j));
-                }
+                todasLP.addAll(aux);
             }
             Collections.sort(todasLP);
             setPalabrasOrdenadas(todasLP);

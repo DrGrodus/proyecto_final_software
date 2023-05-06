@@ -140,7 +140,7 @@ public class Actividad_7 {
                 palabrasDelArchivo.add(name.getName().replaceAll("onlyWords_", ""));
 
                 // Checa la condicional por el método buffer.readLine()
-                // mientras sea verdadero el ciclo while correra
+                // mientras sea verdadero el ciclo while correrá
                 while ((str = buffer.readLine()) != null) {
                     palabrasDelArchivo.add(str);
                 }

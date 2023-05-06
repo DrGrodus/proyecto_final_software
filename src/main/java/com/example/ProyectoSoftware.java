@@ -9,18 +9,17 @@ import java.util.*;
 
 public class ProyectoSoftware {
     static Integer response = 1;
-    //static String folderNoHTML = "RemovedHTML";
-    static Actividad_1 act1 = new Actividad_1();
-    static Actividad_2 act2 = new Actividad_2();
-    static Actividad_3 act3 = new Actividad_3();
-    static Actividad_4 act4 = new Actividad_4();
-    static Actividad_5 act5 = new Actividad_5();
-    static Actividad_6 act6 = new Actividad_6();
-    static Actividad_7 act7 = new Actividad_7();
-
-    static Actividad_8 act8 = new Actividad_8();
-
-    static Actividad_9 act9 = new Actividad_9();
+    static final Actividad_1 act1 = new Actividad_1();
+    static final Actividad_2 act2 = new Actividad_2();
+    static final Actividad_3 act3 = new Actividad_3();
+    static final Actividad_4 act4 = new Actividad_4();
+    static final Actividad_5 act5 = new Actividad_5();
+    static final Actividad_6 act6 = new Actividad_6();
+    static final Actividad_7 act7 = new Actividad_7();
+    static final Actividad_8 act8 = new Actividad_8();
+    static final Actividad_9 act9 = new Actividad_9();
+    static final Actividad_10 act10 = new Actividad_10();
+    static final Actividad_11 act11 = new Actividad_11();
 
     public static void main(String[] args) {
 
@@ -36,7 +35,7 @@ public class ProyectoSoftware {
         while (response != 0) {
             String dato = "";
             response = null;
-            System.out.println("Demostraciones \nIngresa el numero de la seleccion deseada:" +
+            System.out.println("Demostraciones \nIngresa el numero de la selección deseada:" +
                     "\n 1.- Actividad 1" +
                     "\n 2.- Actividad 2" +
                     "\n 3.- Actividad 3" +
@@ -128,7 +127,7 @@ public class ProyectoSoftware {
                     act4.setTodasLasPalabras(act3.getCollecionDePalabras());
                     act4.CrearArchivo();
                     tiempoAct = act4.getTiempoAct();
-                    /* </Metodos> */
+                    /* </Métodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -146,7 +145,7 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* <Metodos> */
+                    /* <Métodos> */
                     if (act4.getPalabrasOrdenadas() == null) {
                         act3.ListadoDeArchivos();
                         act4.setTodasLasPalabras(act3.getCollecionDePalabras());
@@ -158,7 +157,7 @@ public class ProyectoSoftware {
                     act5.setListado(act4.getPalabrasOrdenadas());
                     act5.LeerListaDePalabras();
                     tiempoAct = act5.getTiempoAct();
-                    /* </Metodos> */
+                    /* </Métodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -177,7 +176,7 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* <Metodos> */
+                    /* <Métodos> */
                     if (act3.getCollecionDePalabras() == null) {
                         act3.ListadoDeArchivos();
                     }
@@ -186,7 +185,7 @@ public class ProyectoSoftware {
                     act6.setPalabrasPorArchivo(act3.getCollecionDePalabras());
                     act6.Contabilizar();
                     tiempoAct = act6.getTiempoAct();
-                    /* </Metodos> */
+                    /* </Métodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
@@ -205,18 +204,18 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* <Metodos> */
+                    /* <Métodos> */
 
                     act7.RecolectarYRelacionar();
 
-                    /* </Metodos> */
+                    /* </Métodos> */
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
                     registros = null;
 
-                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
                     break;
 
                 case 8:
@@ -225,21 +224,38 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* <Metodos> */
+                    /* <Métodos> */
 
                     act8.RecolectarYRelacionar();
 
-                    /* </Metodos> */
+                    /* </Métodos> */
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
-                    registros = null;
-
-                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
                     break;
 
                 case 9:
+
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Métodos> */
+                    act9.Limpiador();
+
+                    /* </Métodos> */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
+                    break;
+
+                case 10:
                     System.out.println("WIP1");
 
                     tiempoEjecucion = 0;
@@ -247,34 +263,44 @@ public class ProyectoSoftware {
                     tiempoAdicional = 0;
                     inicioEjecucion = System.currentTimeMillis();
 
-                    /* <Metodos> */
-                    /*act7.RecolectarYRelacionar();
-                    tiempoAdicional += act7.getTiempoAct();
+                    /* <Métodos> */
+                    act10.ManejadorDePeso();
 
-                    act9.setDiccionarioList(act7.getDiccionarioList());
-                    act9.setPostingList(act7.getPostingList());
-
-                    act9.Limpiador();*/
-                    act9.Limpiador();
-
-
-
-                    /* </Metodos> */
+                    /* </Métodos> */
 
                     archivoToLog = CreateLog();
                     finalEjecucion = System.currentTimeMillis();
                     tiempoEjecucion = finalEjecucion - inicioEjecucion;
 
-                    registros = null;
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
 
-                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, registros, tiempoAdicional);
+                    break;
+
+                case 11:
+                    System.out.println("WIP2");
+
+                    break;
+
+                case 12:
+                    System.out.println("WIP3");
+
+                    break;
+
+                case 14:
+                    System.out.println("WIP4");
+
+                    break;
+
+                case 15:
+                    System.out.println("WIP5");
+
                     break;
 
                 case 0:
                     System.out.println("Gracias por usar el programa!");
                     break;
                 default:
-                    System.out.println("Esa opcion todavía no ha sido implementada");
+                    System.out.println("Esa opción todavía no ha sido implementada");
                     break;
             }
         }
@@ -311,7 +337,7 @@ public class ProyectoSoftware {
                         if (tiempoAdicional > 0) {
                             escritor.write("Tiempo adicional: " + tiempoAdicional + " milisegundos " + "ó " + valorAdc + " segundos");
                         }
-                        escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabeticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
+                        escritor.write("\nTiempo total en recolectar todas las palabras y ordenarlas alfabéticamente: " + tiempoAct + " milisegundos " + "ó " + valorAct + " segundos");
                         break;
 
                     case 4:
@@ -339,11 +365,13 @@ public class ProyectoSoftware {
                         break;
 
                     case 7:
-
                     case 8:
-
                     case 9:
-
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 14:
+                    case 15:
                         break;
 
                     default:
@@ -351,7 +379,7 @@ public class ProyectoSoftware {
                         break;
                 }
 
-                escritor.write("\nTiempo total de ejecucion de la aplicación:  " + tiempoEjecucion + " milisegundos " + "ó " + valorEjec + " segundos");
+                escritor.write("\nTiempo total de ejecución de la aplicación:  " + tiempoEjecucion + " milisegundos " + "ó " + valorEjec + " segundos");
                 escritor.close();
             }
         } catch (IOException e) {

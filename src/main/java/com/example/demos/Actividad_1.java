@@ -57,7 +57,7 @@ public class Actividad_1 {
         }
 
         // Para ordenar los valores
-        TreeMap<File, Long> mapa = new TreeMap<File, Long>(registro);
+        TreeMap<File, Long> mapa = new TreeMap<>(registro);
         setRegistros(mapa);
 
         System.out.println("\n \n");

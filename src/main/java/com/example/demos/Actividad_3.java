@@ -108,7 +108,7 @@ public class Actividad_3 {
         // https://www.geeksforgeeks.org/java-program-to-read-a-file-to-string/
         // el bloque try es para checar las excepciones cuando
         // un objeto de la clase BufferedReader es creado
-        // para leer la direccion del archivo
+        // para leer la dirección del archivo
         String onlyWords = "([-A-z/.]{2,}+)";
 
         try {
@@ -121,7 +121,7 @@ public class Actividad_3 {
             FileWriter escritor = new FileWriter(archivo);
 
             // Checa la condicional por el método buffer.readLine()
-            // mientras sea verdadero el ciclo while correra
+            // mientras sea verdadero el ciclo while correrá
             while ((str = buffer.readLine()) != null) {
                 builder.append(str).append("\n");
             }

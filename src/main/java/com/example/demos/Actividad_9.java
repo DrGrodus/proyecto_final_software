@@ -143,7 +143,7 @@ public class Actividad_9 {
 
 
                 // Checa la condicional por el método buffer.readLine()
-                // mientras sea verdadero el ciclo while correra
+                // mientras sea verdadero el ciclo while correrá
                 while ((str = buffer.readLine()) != null) {
                     if (!getStopList().contains(str)) {
                         palabrasDelArchivo.add(str);
