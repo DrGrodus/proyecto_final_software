@@ -1,9 +1,6 @@
 package com.example.demos;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.*;
 
 public class Actividad_10 {
@@ -62,10 +59,10 @@ public class Actividad_10 {
         PostingList = postingList;
     }
     /*
-    tf: frecuencia de terminos
+    tf: frecuencia de términos
     idf: frecuencia inversa de documentos o posting file
 
-    tf.idf = (número de repeticiones * 100)/ número total de tokens en el documento
+    tf.idf = (número de repeticiones de la palabra (o token) * 100)/ número total de las palabras únicas en el archivo posting
      */
 
     static final Actividad_9 act9 = new Actividad_9();
@@ -73,11 +70,20 @@ public class Actividad_10 {
     public void ManejadorDePeso() {
         act9.Limpiador();
         setPostingList(act9.getPostingList());
-        setPosting(act9.getPosting());
         setDiccionarioList(act9.getDiccionarioList());
-        setDiccionario(act9.getDiccionario());
 
-        int a = 0;
+        TreeMap<String, Double> pesoDeLaPalabra = new TreeMap<>();
+        for(Map.Entry<String, List<String>> entrada : getPostingList().entrySet()) {
+            String palabra = entrada.getKey();
+            List<String> documentos = entrada.getValue();
+            Double peso = (double) (documentos.size() * 100);
+            peso /= getPostingList().size();
+            peso = Math.floor(peso * 1e3) / 1e3; // redondeamos a tres decimales, para hacerlo más simple de leer
+            pesoDeLaPalabra.put(palabra, peso);
+
+        }
+
+        int b = 0;
 
 
 

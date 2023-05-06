@@ -36,16 +36,21 @@ public class ProyectoSoftware {
             String dato = "";
             response = null;
             System.out.println("Demostraciones \nIngresa el numero de la selección deseada:" +
-                    "\n 1.- Actividad 1" +
-                    "\n 2.- Actividad 2" +
-                    "\n 3.- Actividad 3" +
-                    "\n 4.- Actividad 4" +
-                    "\n 5.- Actividad 5" +
-                    "\n 6.- Actividad 6" +
-                    "\n 7.- Actividad 7" +
-                    "\n 8.- Actividad 8" +
-                    "\n 9.- Actividad 9" +
-                    "\n 0.- Salir" +
+                    "\n 1.-  Actividad 1" +
+                    "\n 2.-  Actividad 2" +
+                    "\n 3.-  Actividad 3" +
+                    "\n 4.-  Actividad 4" +
+                    "\n 5.-  Actividad 5" +
+                    "\n 6.-  Actividad 6" +
+                    "\n 7.-  Actividad 7" +
+                    "\n 8.-  Actividad 8" +
+                    "\n 9.-  Actividad 9" +
+                    "\n 10.- Actividad 10" +
+                    "\n 11.- Actividad 11" +
+                    "\n 12.- Actividad 12" +
+                    "\n 14.- Actividad 14" +
+                    "\n 15.- Actividad 15" +
+                    "\n 0.-  Salir" +
                     "");
             dato = scan.nextLine();
             try {
@@ -391,7 +396,7 @@ public class ProyectoSoftware {
     public static String CreateLog() {
         try {
             String placeholder = "aR_2802776.txt";
-            String fileName = placeholder.replace('R', Character.forDigit(response, 10));
+            String fileName = placeholder.replaceAll("R", String.valueOf(response));
             File archivo = new File(fileName);
             if (archivo.createNewFile()) {
                 System.out.println("Archivo creado: " + archivo.getName() + "\n\n");
