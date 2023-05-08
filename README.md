@@ -14,7 +14,7 @@
 * Actividad 7 	100%
 * Actividad 8 	100%
 * Actividad 9 	100%
-* Actividad 10 	0%
+* Actividad 10 	100%
 
 ## Fase 4
 * Actividad 11 	0%

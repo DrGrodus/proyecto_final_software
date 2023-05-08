@@ -8,9 +8,9 @@ public class Actividad_9 {
     private long tiempoAct;
     private TreeMap<File, Long> registros;
     private File Diccionario;
-    private List<TreeMap<String, Integer>> DiccionarioList;
+    private TreeMap<String, List<String>> DiccionarioList;
     private File Posting;
-    private TreeMap<String, List<String>> PostingList;
+    private List<TreeMap<String, Integer>> PostingList;
     private List<String> stopList;
 
     public long getTiempoAct() {
@@ -37,11 +37,11 @@ public class Actividad_9 {
         Diccionario = diccionario;
     }
 
-    public List<TreeMap<String, Integer>> getDiccionarioList() {
+    public TreeMap<String, List<String>> getDiccionarioList() {
         return DiccionarioList;
     }
 
-    public void setDiccionarioList(List<TreeMap<String, Integer>> diccionarioList) {
+    public void setDiccionarioList(TreeMap<String, List<String>> diccionarioList) {
         DiccionarioList = diccionarioList;
     }
 
@@ -53,11 +53,11 @@ public class Actividad_9 {
         Posting = posting;
     }
 
-    public TreeMap<String, List<String>> getPostingList() {
+    public List<TreeMap<String, Integer>> getPostingList() {
         return PostingList;
     }
 
-    public void setPostingList(TreeMap<String, List<String>> postingList) {
+    public void setPostingList(List<TreeMap<String, Integer>> postingList) {
         PostingList = postingList;
     }
 
@@ -209,8 +209,6 @@ public class Actividad_9 {
             }
             j++;
         }
-        setDiccionarioList(repeticionesPorArchivo);
-        setPostingList(relacionPalabraArchivo);
         EscribirArchivos(relacionPalabraArchivo, repeticionesPorArchivo);
 
     }
@@ -232,6 +230,7 @@ public class Actividad_9 {
 
             for (String palabraRechazada : rechazadas) {
                 relacionPalabraArchivo.remove(palabraRechazada);
+                repeticionesPorArchivo.remove(palabraRechazada);
             }
 
             int j = 1;
@@ -264,6 +263,9 @@ public class Actividad_9 {
                 k++;
             }
             escritorDCC.close();
+
+            setDiccionarioList(relacionPalabraArchivo);
+            setPostingList(repeticionesPorArchivo);
 
         } catch (IOException e) {
             System.out.println("Error IO");
