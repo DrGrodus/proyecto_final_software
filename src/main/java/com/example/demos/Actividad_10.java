@@ -13,6 +13,7 @@ public class Actividad_10 {
     private TreeMap<String, List<String>> DiccionarioList;
     private File Posting;
     private List<TreeMap<String, Integer>> PostingList;
+    private List<TreeMap<String, Double>> NewPostingList;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -58,6 +59,13 @@ public class Actividad_10 {
         return PostingList;
     }
 
+    public void setPostingList(List<TreeMap<String, Integer>> postingList) {
+        PostingList = postingList;
+    }
+
+    public List<TreeMap<String, Double>> getNewPostingList() {
+        return NewPostingList;
+    }
     /*
     tf: frecuencia de términos
     idf: frecuencia inversa de documentos o posting file
@@ -65,8 +73,8 @@ public class Actividad_10 {
     tf.idf = (número de repeticiones de la palabra (o token) * 100)/ número total de las palabras únicas en el archivo posting
      */
 
-    public void setPostingList(List<TreeMap<String, Integer>> postingList) {
-        PostingList = postingList;
+    public void setNewPostingList(List<TreeMap<String, Double>> newPostingList) {
+        NewPostingList = newPostingList;
     }
 
     public void ManejadorDePeso() {
@@ -122,23 +130,31 @@ public class Actividad_10 {
             List<Integer> indices = new ArrayList<>();
             indices.add(0);
 
+
             // Archivo Posting
+            List<TreeMap<String, Double>> listaPost = new ArrayList<>();
             for (TreeMap<String, Integer> repeticiones : getPostingList()) {
                 for (Map.Entry<String, Integer> entrada : repeticiones.entrySet()) {
                     String palabra = entrada.getKey();
                     Integer coincidencias = entrada.getValue();
                     List<String> tmp = null;
-                    if(getDiccionarioList().get(palabra) != null){
+                    TreeMap<String, Double> auxNPost = new TreeMap<>();
+                    if (getDiccionarioList().get(palabra) != null) {
                         tmp = getDiccionarioList().get(palabra);
                         Double peso = pesoDeLaPalabra.get(palabra);
                         for (String elem : tmp) {
                             escritorPST.write(elem + "; " + peso + "\n");
+                            auxNPost.put(elem, peso);
                         }
                         indices.add(tmp.size() + indices.get(j - 1));
                         j++;
                     }
+                    if (!auxNPost.isEmpty()) {
+                        listaPost.add(auxNPost);
+                    }
                 }
             }
+            setNewPostingList(listaPost);
             escritorPST.close();
 
 

@@ -261,8 +261,6 @@ public class ProyectoSoftware {
                     break;
 
                 case 10:
-                    System.out.println("WIP1");
-
                     tiempoEjecucion = 0;
                     tiempoAct = 0;
                     tiempoAdicional = 0;
@@ -284,6 +282,21 @@ public class ProyectoSoftware {
                 case 11:
                     System.out.println("WIP2");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Métodos> */
+                    act11.masRelacionConArchivos();
+
+                    /* </Métodos> */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
                     break;
 
                 case 12:
