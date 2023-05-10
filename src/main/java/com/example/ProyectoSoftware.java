@@ -20,6 +20,9 @@ public class ProyectoSoftware {
     static final Actividad_9 act9 = new Actividad_9();
     static final Actividad_10 act10 = new Actividad_10();
     static final Actividad_11 act11 = new Actividad_11();
+    static final Actividad_12 act12 = new Actividad_12();
+    static final Actividad_14 act14 = new Actividad_14();
+    static final Actividad_15 act15 = new Actividad_15();
 
     public static void main(String[] args) {
 
@@ -302,15 +305,60 @@ public class ProyectoSoftware {
                 case 12:
                     System.out.println("WIP3");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Métodos> */
+
+                    /* </Métodos> */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
+
                     break;
 
                 case 14:
                     System.out.println("WIP4");
 
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Métodos> */
+
+                    /* </Métodos> */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
+
                     break;
 
                 case 15:
                     System.out.println("WIP5");
+
+                    tiempoEjecucion = 0;
+                    tiempoAct = 0;
+                    tiempoAdicional = 0;
+                    inicioEjecucion = System.currentTimeMillis();
+
+                    /* <Métodos> */
+
+                    /* </Métodos> */
+
+                    archivoToLog = CreateLog();
+                    finalEjecucion = System.currentTimeMillis();
+                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
+
+                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
 
                     break;
 
