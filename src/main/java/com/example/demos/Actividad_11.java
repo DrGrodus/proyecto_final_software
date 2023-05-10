@@ -174,9 +174,8 @@ public class Actividad_11 {
                             }
                             escritorPST.write(docID +"; " + peso + "\n");
                         //}
-                        //indices.add(tmp.size() + indices.get(j-1));
+                        indices.add(entradaPST.size() + indices.get(j-1));
                         j++;
-
                 }
 
             }
