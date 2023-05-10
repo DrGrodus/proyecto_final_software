@@ -143,14 +143,6 @@ public class Actividad_11 {
             FileWriter escritorPST = new FileWriter(getPosting());
             FileWriter escritorDOC = new FileWriter(getDocumentos());
 
-            getDiccionarioList();
-            getPostingList();
-            getDocumentosList();
-
-            int j = 1;
-            List<Integer> indices = new ArrayList<>();
-            indices.add(0);
-
             // Archivo Documentos
             for (Map.Entry<String, Integer> entradaDOC : getDocumentosList().entrySet()) {
                 String nombre = entradaDOC.getKey();
@@ -159,6 +151,9 @@ public class Actividad_11 {
             }
             escritorDOC.close();
 
+            int j = 1;
+            List<Integer> indices = new ArrayList<>();
+            indices.add(0);
             // Archivo Posting
             for (TreeMap<String, Double> posting : getPostingList()) {
                 for (Map.Entry<String, Double> entradaPST : posting.entrySet()) {
@@ -166,8 +161,9 @@ public class Actividad_11 {
                     Double peso = entradaPST.getValue();
                     Integer docID = getDocumentosList().get(nombreDeArchivo);
                     escritorPST.write(docID + ";    " + peso + "\n");
-                    j++;
                 }
+                indices.add(posting.size() + indices.get(j-1));
+                j++;
 
             }
             escritorPST.close();
@@ -181,6 +177,7 @@ public class Actividad_11 {
                 escritorDCC.write(palabra + "; " + documentos.size() + "; " + indices.get(k) + "\n");
                 k++;
             }
+            escritorDCC.close();
 
 
 
