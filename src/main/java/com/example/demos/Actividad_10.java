@@ -66,16 +66,17 @@ public class Actividad_10 {
     public List<TreeMap<String, Double>> getNewPostingList() {
         return NewPostingList;
     }
+
+    public void setNewPostingList(List<TreeMap<String, Double>> newPostingList) {
+        NewPostingList = newPostingList;
+    }
+
     /*
     tf: frecuencia de términos
     idf: frecuencia inversa de documentos o posting file
 
     tf.idf = (número de repeticiones de la palabra (o token) * 100)/ número total de las palabras únicas en el archivo posting
      */
-
-    public void setNewPostingList(List<TreeMap<String, Double>> newPostingList) {
-        NewPostingList = newPostingList;
-    }
 
     public void ManejadorDePeso() {
         act9.Limpiador();
