@@ -14,7 +14,7 @@ public class Actividad_11 {
     private File Posting;
     private List<TreeMap<String, Double>> PostingList;
     private File Documentos;
-    private TreeMap<Integer, String> DocumentosList;
+    private TreeMap<String, Integer> DocumentosList;
 
     public long getTiempoAct() {
         return tiempoAct;
@@ -72,11 +72,11 @@ public class Actividad_11 {
         Documentos = documentos;
     }
 
-    public TreeMap<Integer, String> getDocumentosList() {
+    public TreeMap<String, Integer> getDocumentosList() {
         return DocumentosList;
     }
 
-    public void setDocumentosList(TreeMap<Integer, String> documentosList) {
+    public void setDocumentosList(TreeMap<String, Integer> documentosList) {
         DocumentosList = documentosList;
     }
 
@@ -91,7 +91,7 @@ public class Actividad_11 {
 
     }
 
-    public void listarArchivos () {
+    public void listarArchivos() {
         String Path = new File("").getAbsolutePath().concat("\\Actividad_3");
         final File folderBuscar = new File(Path);
         List<File> fileList = LectorDirectorios(folderBuscar);
@@ -100,10 +100,10 @@ public class Actividad_11 {
         for (File name : fileList) {
             palabrasDelArchivo.add(name.getName().replaceAll("onlyWords_", ""));
         }
-        TreeMap<Integer, String> listaDeArchivos = new TreeMap<>();
+        TreeMap<String, Integer> listaDeArchivos = new TreeMap<>();
         int i = 1;
         for (String elem : palabrasDelArchivo) {
-            listaDeArchivos.put(i, elem);
+            listaDeArchivos.put(elem, i);
             i++;
         }
         setDocumentosList(listaDeArchivos);
@@ -152,36 +152,35 @@ public class Actividad_11 {
             indices.add(0);
 
             // Archivo Documentos
-            for(Map.Entry<Integer, String> entradaDOC : getDocumentosList().entrySet()) {
-                Integer id = entradaDOC.getKey();
-                String nombre = entradaDOC.getValue();
+            for (Map.Entry<String, Integer> entradaDOC : getDocumentosList().entrySet()) {
+                String nombre = entradaDOC.getKey();
+                Integer id = entradaDOC.getValue();
                 escritorDOC.write(id + "; " + nombre + "\n");
             }
             escritorDOC.close();
 
             // Archivo Posting
-            for(TreeMap<String, Double> posting : getPostingList()) {
-                for(Map.Entry<String, Double> entradaPST : posting.entrySet()) {
+            for (TreeMap<String, Double> posting : getPostingList()) {
+                for (Map.Entry<String, Double> entradaPST : posting.entrySet()) {
                     String nombreDeArchivo = entradaPST.getKey();
                     Double peso = entradaPST.getValue();
-                    //tmp = getDiccionarioList().get(nombreDeArchivo);
-                        //for(String elem : tmp) {
-                            Integer docID = null;
-                            for(Map.Entry<Integer, String> entradaDOC : getDocumentosList().entrySet()) {
-                                if(entradaDOC.getValue().equals(nombreDeArchivo)) {
-                                    docID = entradaDOC.getKey();
-                                }
-                            }
-                            escritorPST.write(docID +"; " + peso + "\n");
-                        //}
-                        indices.add(entradaPST.size() + indices.get(j-1));
-                        j++;
+                    Integer docID = getDocumentosList().get(nombreDeArchivo);
+                    escritorPST.write(docID + ";    " + peso + "\n");
+                    j++;
                 }
 
             }
             escritorPST.close();
 
             // Archivo Diccionario
+            int k = 0;
+            getDiccionarioList();
+            for(Map.Entry<String, List<String>> entrada : getDiccionarioList().entrySet()){
+                String palabra = entrada.getKey();
+                List<String> documentos = entrada.getValue();
+                escritorDCC.write(palabra + "; " + documentos.size() + "; " + indices.get(k) + "\n");
+                k++;
+            }
 
 
 
