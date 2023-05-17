@@ -209,13 +209,6 @@ public class Actividad_12 {
             }
             escritorDCC.close();
 
-            // Archivo resultados
-
-            /*
-                escritorRES.write("aaa");
-                escritorRES.close();
-             */
-
 
 
         } catch (IOException e) {

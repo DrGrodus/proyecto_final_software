@@ -339,6 +339,7 @@ public class ProyectoSoftware {
                     inicioEjecucion = System.currentTimeMillis();
 
                     /* <Métodos> */
+                    act15.Interfaz();
 
                     /* </Métodos> */
 
