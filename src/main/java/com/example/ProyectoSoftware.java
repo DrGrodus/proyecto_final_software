@@ -312,6 +312,13 @@ public class ProyectoSoftware {
 
                     /* <Métodos> */
 
+                    Scanner scanPalabra = new Scanner(System.in);
+                    String buscarPalabra = "";
+                    System.out.println("Escribe la palabra para buscar:");
+                    buscarPalabra = scanPalabra.nextLine();
+
+                    act12.BuscadorDePalabras(buscarPalabra);
+
                     /* </Métodos> */
 
                     archivoToLog = CreateLog();
@@ -323,27 +330,8 @@ public class ProyectoSoftware {
                     break;
 
                 case 14:
-                    System.out.println("WIP4");
-
-                    tiempoEjecucion = 0;
-                    tiempoAct = 0;
-                    tiempoAdicional = 0;
-                    inicioEjecucion = System.currentTimeMillis();
-
-                    /* <Métodos> */
-
-                    /* </Métodos> */
-
-                    archivoToLog = CreateLog();
-                    finalEjecucion = System.currentTimeMillis();
-                    tiempoEjecucion = finalEjecucion - inicioEjecucion;
-
-                    PrintLog(tiempoEjecucion, tiempoAct, archivoToLog, null, tiempoAdicional);
-
-                    break;
-
                 case 15:
-                    System.out.println("WIP5");
+                    System.out.println("WIP4");
 
                     tiempoEjecucion = 0;
                     tiempoAct = 0;

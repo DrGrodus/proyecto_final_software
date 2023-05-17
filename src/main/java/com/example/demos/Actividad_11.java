@@ -95,8 +95,7 @@ public class Actividad_11 {
         String Path = new File("").getAbsolutePath().concat("\\Actividad_3");
         final File folderBuscar = new File(Path);
         List<File> fileList = LectorDirectorios(folderBuscar);
-        List<String> palabrasDelArchivo = null;
-        palabrasDelArchivo = new ArrayList<>();
+        List<String> palabrasDelArchivo = new ArrayList<>();
         for (File name : fileList) {
             palabrasDelArchivo.add(name.getName().replaceAll("onlyWords_", ""));
         }
@@ -170,7 +169,6 @@ public class Actividad_11 {
 
             // Archivo Diccionario
             int k = 0;
-            getDiccionarioList();
             for(Map.Entry<String, List<String>> entrada : getDiccionarioList().entrySet()){
                 String palabra = entrada.getKey();
                 List<String> documentos = entrada.getValue();
